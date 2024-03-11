@@ -4,20 +4,19 @@ syntax = "proto3";
 package core.template.v1;
 
 import "google/api/annotations.proto";
-import "buf/validate/validate.proto"; // https://github.com/bufbuild/protovalidate
+import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "gen/go";
-
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
-      title: "Echo API";
-      version: "1.0.0";
-      contact: {
-          name: "NBN23";
-          url: "https://github.com/NBN23dev/proto-template";
-          email: "develop@nbn23.com";
-      };
+    title: "Echo API";
+    version: "1.0.0";
+    contact: {
+      name: "NBN23";
+      url: "https://github.com/NBN23dev/proto-template";
+      email: "develop@nbn23.com";
+    };
   };
 
   schemes: HTTPS;
@@ -25,27 +24,342 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   produces: "application/json";
 };
 
-// EchoRequest
-//
-// EchoRequest is the request message for Echo.
-message EchoRequest {
-  string data = 1 [(buf.validate.field).string.min_len = 1];
-}
-
-// EchoResponse
-//
-// EchoResponse returns the same value that you send.
-message EchoResponse {
-  string data = 1 [(buf.validate.field).string.min_len = 1];
-}
-
-service EchoService {
-  // Echo
-  //
-  // Echo returns the same value that you send.
-  rpc Echo (EchoRequest) returns (EchoResponse) {
+service BroadageService {
+  rpc GetLiveMatches(GetLiveMatchesRequest) returns (GetLiveMatchesResponse) {
     option (google.api.http) = {
-      get: "/v1/echo"
+      get: "/v1/matches/live";
+      additional_bindings: {get: "/matches/live"}
     };
   }
+
+  rpc GetPlayersFromTeam(GetPlayersFromTeamRequest) returns (GetPlayersFromTeamResponse) {
+    option (google.api.http) = {
+      get: "/v1/teams/{id}/players";
+      additional_bindings: {get: "/teams/{id}/players"}
+    };
+  }
+
+  rpc GetBoxScores(GetBoxScoresRequest) returns (GetBoxScoresResponse) {
+    option (google.api.http) = {
+      get: "/v1/matches/{id}/boxscores";
+      additional_bindings: {get: "/matches/{id}/boxscores"}
+    };
+  }
+
+  rpc GetPlayByPlay(GetPlayByPlayRequest) returns (GetPlayByPlayResponse) {
+    option (google.api.http) = {
+      get: "/v1/match/{id}/playbyplay";
+      additional_bindings: {get: "/match/{id}/playbyplay"}
+    };
+  }
+}
+
+/// GetLiveMatchesRequest represents the request to get the live matches.
+message GetLiveMatchesRequest {}
+
+/// GetLiveMatchesResponse represents the response to get the live matches.
+message GetLiveMatchesResponse {
+  /// Matches is the list of live matches.
+  repeated MatchKey matches = 1;
+}
+
+/// MatchKey represents the key of a match.
+message MatchKey {
+  /// id is the unique identifier of the match.
+  string project_key = 1;
+  /// fid is the unique Firebase ID of the match.
+  string competition_fid = 2;
+  /// fid is the unique Firebase ID of the match.
+  string match_fid = 3;
+}
+
+/// GetPlayersFromTeamRequest represents the request to get the players from a team.
+message GetPlayersFromTeamRequest {
+  /// Id is the unique identifier of the team.
+  string id = 1;
+}
+
+/// GetPlayersFromTeamResponse represents the response to get the players from a team.
+message GetPlayersFromTeamResponse {
+  /// Players is the list of players from the team.
+  repeated Player players = 1;
+}
+
+/// Player represents a player in a game.
+message Player {
+  /// fid is the unique Firebase ID of the player.
+  string fid = 1;
+  /// name is the first name of the player.
+  string name = 2;
+  /// surname is the last name of the player.
+  string surname = 3;
+  /// license is the player's license number.
+  string license = 4;
+  /// image_url is the URL of the player's image.
+  string image_url = 5;
+  /// id is the unique ID of the player.
+  string id = 6;
+  /// team is the name of the team the player belongs to.
+  string team = 7;
+  /// number is the player's jersey number.
+  string number = 8;
+  /// play indicates whether the player is currently playing.
+  bool play = 9;
+  /// start indicates whether the player started the game.
+  bool start = 10;
+  /// captain indicates whether the player is the team captain.
+  bool captain = 11;
+  /// project_key is the key of the project the player is associated with.
+  string project_key = 12;
+  /// created indicates whether the player's profile has been created.
+  bool created = 13;
+  /// health_check indicates whether the player has passed the health check.
+  bool health_check = 14;
+  /// hide_personal_data indicates whether to hide the player's personal data.
+  bool hide_personal_data = 15;
+}
+
+/// BoxScore represents the box score of a match.
+message GetBoxScoresRequest {
+  /// Id is the unique identifier of the match.
+  string id = 1;
+}
+
+/// BoxScore represents the box score of a match.
+message GetBoxScoresResponse {
+  /// BoxScores is the box score of the match.
+  repeated BoxScore box_scores = 1;
+}
+
+// TODO: La tarea está mal definida (es tremendo copypaste) https://jiranbn23.atlassian.net/browse/CM-6670
+message BoxScore {}
+
+/// GetPlayByPlayRequest represents the request to get the play by play of a match.
+message GetPlayByPlayRequest {
+  /// Id is the unique identifier of the match.
+  string id = 1;
+}
+
+/// GetPlayByPlayResponse represents the response to get the play by play of a match.
+message GetPlayByPlayResponse {
+  /// PlayByPlay is the play by play of the match.
+  repeated Action actions = 1;
+  /// Events is the events of the match.
+  repeated Event events = 2;
+}
+
+// Represents an event.
+message Event {
+  // The unique identifier for the event.
+  string fid = 1;
+
+  // The project key associated with the event.
+  string project_key = 2;
+
+  // The unique identifier for the competition associated with the event.
+  string competition_fid = 3;
+
+  // The code representing the event.
+  string code = 4;
+
+  // The type of the event.
+  string type = 5;
+
+  // The payload data associated with the event.
+  EventPayload payload = 6;
+
+  // The timestamp when the event was created.
+  google.protobuf.Timestamp created_at = 7;
+}
+
+// EventCode represents the type of event in a match.
+enum EventCode {
+  // SOM represents the start of the match.
+  EVENT_CODE_SOM_UNSPECIFIED = 0;
+
+  // EOM represents the end of the match.
+  EVENT_CODE_EOM = 1;
+
+  // SOQ represents the start of a quarter.
+  EVENT_CODE_SOQ = 2;
+
+  // EOQ represents the end of a quarter.
+  EVENT_CODE_EOQ = 3;
+
+  // CLOSE represents the closing of the match.
+  EVENT_CODE_CLOSE = 4;
+}
+
+// Actor represents the type of Actor in a match.
+enum Actor {
+  // PLAYER represents a player in the match.
+  ACTOR_PLAYER_UNSPECIFIED = 0;
+
+  // TEAM represents a team in the match.
+  ACTOR_TEAM = 1;
+
+  // COACH represents a coach in the match.
+  ACTOR_COACH = 2;
+
+  // BENCH represents the bench in the match.
+  ACTOR_BENCH = 3;
+}
+
+// SUB_CODE represents the sub-code of an action in a match.
+enum Subcode {
+  // IN_ARC represents an action inside the arc.
+  SUBCODE_IN_ARC_UNSPECIFIED = 0;
+
+  // OUT_ARC represents an action outside the arc.
+  SUBCODE_OUT_ARC = 1;
+
+  // FREE_THROW represents a free throw action.
+  SUBCODE_FREE_THROW = 2;
+
+  // DUNK represents a dunk action.
+  SUBCODE_DUNK = 3;
+
+  // OFFENSIVE_REBOUND represents an offensive rebound action.
+  SUBCODE_OFFENSIVE_REBOUND = 4;
+
+  // DEFENSIVE_REBOUND represents a defensive rebound action.
+  SUBCODE_DEFENSIVE_REBOUND = 5;
+
+  // RECEIVE_BLOCK represents a block received action.
+  SUBCODE_RECEIVE_BLOCK = 6;
+
+  // RECEIVE_FOUL represents a foul received action.
+  SUBCODE_RECEIVE_FOUL = 7;
+
+  // TECHNICAL represents a technical foul action.
+  SUBCODE_TECHNICAL = 8;
+
+  // UNSPORTSMANLIKE represents an unsportsmanlike foul action.
+  SUBCODE_UNSPORTSMANLIKE = 9;
+
+  // DISQUALIFYING represents a disqualifying foul action.
+  SUBCODE_DISQUALIFYING = 10;
+
+  // BRAWL represents a brawl action.
+  SUBCODE_BRAWL = 11;
+
+  // SWAP_IN represents a swap in action.
+  SUBCODE_SWAP_IN = 12;
+
+  // SWAP_OUT represents a swap out action.
+  SUBCODE_SWAP_OUT = 13;
+}
+
+// CODE represents the code of an action in a match.
+enum CODE {
+  // CODE_POINTS represents a points action.
+  CODE_POINTS_UNSPECIFIED = 0;
+
+  // CODE_FOUL represents a foul action.
+  CODE_FOUL = 1;
+
+  // CODE_RECEIVE represents a receive action.
+  CODE_RECEIVE = 2;
+
+  // CODE_REBOUND represents a rebound action.
+  CODE_REBOUND = 3;
+
+  // CODE_ASSIST represents an assist action.
+  CODE_ASSIST = 4;
+
+  // CODE_TURNOVER represents a turnover action.
+  CODE_TURNOVER = 5;
+
+  // CODE_STEAL represents a steal action.
+  CODE_STEAL = 6;
+
+  // CODE_BLOCK represents a block action.
+  CODE_BLOCK = 7;
+
+  // CODE_SWAP represents a swap action.
+  CODE_SWAP = 8;
+
+  // CODE_TIMEOUT represents a timeout action.
+  CODE_TIMEOUT = 9;
+}
+
+// ActorType represents the type of Actor.
+message ActorType {
+  // fid is the unique identifier of the Actor type.
+  string fid = 1;
+
+  // type is the type of the Actor.
+  Actor type = 2;
+}
+
+// Action represents a single action in a match.
+message Action {
+  // fid is the unique identifier of the action.
+  string fid = 1;
+
+  // match_fid is the unique identifier of the match where the action occurred.
+  string match_fid = 2;
+
+  // project_key is the key of the project to which the action belongs.
+  string project_key = 3;
+
+  // device_id is the identifier of the device that recorded the action.
+  string device_id = 4;
+
+  // competition_fid is the unique identifier of the competition where the action occurred.
+  string competition_fid = 5;
+
+  // team_fid is the unique identifier of the team that performed the action.
+  string team_fid = 6;
+
+  // Actor represents the type of Actor who performed the action.
+  ActorType actor = 7;
+
+  // code represents the code of the action.
+  CODE code = 8;
+
+  // sub_code represents the sub-code of the action.
+  Subcode sub_code = 9;
+
+  // value is the value associated with the action.
+  int32 value = 10;
+
+  // result indicates whether the action was successful or not.
+  bool result = 11;
+
+  // period represents the period of the match when the action occurred.
+  int32 period = 12;
+
+  // time is the time when the action occurred.
+  int32 time = 13;
+
+  // match_time is the time of the match when the action occurred.
+  int32 match_time = 14;
+
+  // sequence is the sequence number of the action in the match.
+  int32 sequence = 15;
+
+  // position is the position on the field where the action occurred.
+  repeated int32 position = 16;
+
+  // zone is the zone on the field where the action occurred.
+  int32 zone = 17;
+
+  // created_at is the timestamp when the action was created.
+  google.protobuf.Timestamp created_at = 18;
+
+  // updated_at is the timestamp when the action was last updated.
+  google.protobuf.Timestamp updated_at = 19;
+}
+
+// EventPayload represents the payload of an event.
+message EventPayload {
+  // match_fid is the unique identifier of the match where the event occurred.
+  string match_fid = 1;
+
+  // period represents the period of the match when the event occurred.
+  int32 period = 2;
+
+  // time is the time when the event occurred.
+  int32 time = 3;
 }
