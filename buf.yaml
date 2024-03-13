@@ -1,5 +1,5 @@
 version: v1
-name: buf.build/nbn23/proto-template
+name: buf.build/nbn23/proto-broadage
 deps:
   - buf.build/googleapis/googleapis
   - buf.build/grpc-ecosystem/grpc-gateway

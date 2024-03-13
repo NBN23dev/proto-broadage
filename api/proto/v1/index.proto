@@ -14,7 +14,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
     version: "1.0.0";
     contact: {
       name: "NBN23";
-      url: "https://github.com/NBN23dev/proto-template";
+      url: "https://github.com/NBN23dev/proto-broadage";
       email: "develop@nbn23.com";
     };
   };
@@ -32,24 +32,24 @@ service BroadageService {
     };
   }
 
-  rpc GetPlayersFromTeam(GetPlayersFromTeamRequest) returns (GetPlayersFromTeamResponse) {
+  rpc GetTeamPlayers(GetTeamPlayersRequest) returns (GetTeamPlayersResponse) {
     option (google.api.http) = {
-      get: "/v1/teams/{id}/players";
-      additional_bindings: {get: "/teams/{id}/players"}
+      get: "/v1/teams/{team_id}/players";
+      additional_bindings: {get: "/teams/{team_id}/players"}
     };
   }
 
-  rpc GetBoxScores(GetBoxScoresRequest) returns (GetBoxScoresResponse) {
+  rpc GetMatchPlayers(GetMatchPlayersRequest) returns (GetMatchPlayersResponse) {
     option (google.api.http) = {
-      get: "/v1/matches/{id}/boxscores";
-      additional_bindings: {get: "/matches/{id}/boxscores"}
+      get: "/v1/match/{match_id}/players";
+      additional_bindings: {get: "/match/{match_id}/players"}
     };
   }
 
   rpc GetPlayByPlay(GetPlayByPlayRequest) returns (GetPlayByPlayResponse) {
     option (google.api.http) = {
-      get: "/v1/match/{id}/playbyplay";
-      additional_bindings: {get: "/match/{id}/playbyplay"}
+      get: "/v1/match/{match_id}/playbyplay";
+      additional_bindings: {get: "/match/{match_id}/playbyplay"}
     };
   }
 }
@@ -67,77 +67,89 @@ message GetLiveMatchesResponse {
 message MatchKey {
   /// id is the unique identifier of the match.
   string project_key = 1;
-  /// fid is the unique Firebase ID of the match.
+  /// fid is the unique id of the match.
   string competition_fid = 2;
-  /// fid is the unique Firebase ID of the match.
+  /// fid is the unique id of the match.
   string match_fid = 3;
 }
 
 /// GetPlayersFromTeamRequest represents the request to get the players from a team.
-message GetPlayersFromTeamRequest {
+message GetTeamPlayersRequest {
   /// Id is the unique identifier of the team.
-  string id = 1;
+  string team_id = 1;
 }
 
 /// GetPlayersFromTeamResponse represents the response to get the players from a team.
-message GetPlayersFromTeamResponse {
+message GetTeamPlayersResponse {
   /// Players is the list of players from the team.
-  repeated Player players = 1;
+  repeated TeamPlayer players = 1;
+}
+
+/// PLAYER_TYPE represents the type of player in a game.
+enum PlayerType {
+  /// PLAYER_TYPE_UNSPECIFIED represents an unspecified player type.
+  PLAYER_TYPE_UNSPECIFIED = 0;
+
+  /// PLAYER_TYPE_PLAYER represents a player.
+  PLAYER_TYPE_TEAM = 1;
 }
 
 /// Player represents a player in a game.
-message Player {
-  /// fid is the unique Firebase ID of the player.
+message TeamPlayer {
+  /// fid is the unique id of the player.
   string fid = 1;
   /// name is the first name of the player.
   string name = 2;
   /// surname is the last name of the player.
   string surname = 3;
-  /// license is the player's license number.
-  string license = 4;
-  /// image_url is the URL of the player's image.
-  string image_url = 5;
-  /// id is the unique ID of the player.
-  string id = 6;
-  /// team is the name of the team the player belongs to.
-  string team = 7;
-  /// number is the player's jersey number.
-  string number = 8;
-  /// play indicates whether the player is currently playing.
-  bool play = 9;
-  /// start indicates whether the player started the game.
-  bool start = 10;
-  /// captain indicates whether the player is the team captain.
-  bool captain = 11;
-  /// project_key is the key of the project the player is associated with.
-  string project_key = 12;
-  /// created indicates whether the player's profile has been created.
-  bool created = 13;
-  /// health_check indicates whether the player has passed the health check.
-  bool health_check = 14;
-  /// hide_personal_data indicates whether to hide the player's personal data.
-  bool hide_personal_data = 15;
+  /// last_name is the last name of the player.
+  string last_name = 4;
+  /// number is the number of the player.
+  int32 number = 5;
+  /// player_type is the type of the player.
+  PlayerType player_type = 6;
 }
 
 /// BoxScore represents the box score of a match.
-message GetBoxScoresRequest {
+message GetMatchPlayersRequest {
   /// Id is the unique identifier of the match.
+  string match_id = 1;
+}
+
+// Represents a player.
+message Player {
+  // The unique identifier of the player.
   string id = 1;
+  // The team the player belongs to.
+  string team = 2;
+  // The player's number.
+  string number = 3;
+  // Indicates if the player is currently playing.
+  bool play = 4;
+  // Indicates if the player is starting the match.
+  bool start = 5;
+  // Indicates if the player is the captain of the team.
+  bool captain = 6;
+  // The key of the project to which the player belongs.
+  string project_key = 7;
+  // Indicates if the player has been created.
+  bool created = 8;
+  // Indicates if the player's health check is passed.
+  bool health_check = 9;
+  // Indicates if the player's personal data is hidden.
+  bool hide_personal_data = 10;
 }
 
-/// BoxScore represents the box score of a match.
-message GetBoxScoresResponse {
-  /// BoxScores is the box score of the match.
-  repeated BoxScore box_scores = 1;
+/// GetMatchPlayersResponse represents the response to get the box score of a match.
+message GetMatchPlayersResponse {
+  /// players are the players of the match.
+  repeated Player players = 1;
 }
-
-// TODO: La tarea está mal definida (es tremendo copypaste) https://jiranbn23.atlassian.net/browse/CM-6670
-message BoxScore {}
 
 /// GetPlayByPlayRequest represents the request to get the play by play of a match.
 message GetPlayByPlayRequest {
   /// Id is the unique identifier of the match.
-  string id = 1;
+  string match_id = 1;
 }
 
 /// GetPlayByPlayResponse represents the response to get the play by play of a match.

@@ -67,8 +67,8 @@ func local_request_BroadageService_GetLiveMatches_1(ctx context.Context, marshal
 
 }
 
-func request_BroadageService_GetPlayersFromTeam_0(ctx context.Context, marshaler runtime.Marshaler, client BroadageServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetPlayersFromTeamRequest
+func request_BroadageService_GetTeamPlayers_0(ctx context.Context, marshaler runtime.Marshaler, client BroadageServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetTeamPlayersRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -78,23 +78,23 @@ func request_BroadageService_GetPlayersFromTeam_0(ctx context.Context, marshaler
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["team_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "team_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.TeamId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "team_id", err)
 	}
 
-	msg, err := client.GetPlayersFromTeam(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetTeamPlayers(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_BroadageService_GetPlayersFromTeam_0(ctx context.Context, marshaler runtime.Marshaler, server BroadageServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetPlayersFromTeamRequest
+func local_request_BroadageService_GetTeamPlayers_0(ctx context.Context, marshaler runtime.Marshaler, server BroadageServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetTeamPlayersRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -104,23 +104,23 @@ func local_request_BroadageService_GetPlayersFromTeam_0(ctx context.Context, mar
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["team_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "team_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.TeamId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "team_id", err)
 	}
 
-	msg, err := server.GetPlayersFromTeam(ctx, &protoReq)
+	msg, err := server.GetTeamPlayers(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_BroadageService_GetPlayersFromTeam_1(ctx context.Context, marshaler runtime.Marshaler, client BroadageServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetPlayersFromTeamRequest
+func request_BroadageService_GetTeamPlayers_1(ctx context.Context, marshaler runtime.Marshaler, client BroadageServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetTeamPlayersRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -130,23 +130,23 @@ func request_BroadageService_GetPlayersFromTeam_1(ctx context.Context, marshaler
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["team_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "team_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.TeamId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "team_id", err)
 	}
 
-	msg, err := client.GetPlayersFromTeam(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetTeamPlayers(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_BroadageService_GetPlayersFromTeam_1(ctx context.Context, marshaler runtime.Marshaler, server BroadageServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetPlayersFromTeamRequest
+func local_request_BroadageService_GetTeamPlayers_1(ctx context.Context, marshaler runtime.Marshaler, server BroadageServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetTeamPlayersRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -156,23 +156,23 @@ func local_request_BroadageService_GetPlayersFromTeam_1(ctx context.Context, mar
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["team_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "team_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.TeamId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "team_id", err)
 	}
 
-	msg, err := server.GetPlayersFromTeam(ctx, &protoReq)
+	msg, err := server.GetTeamPlayers(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_BroadageService_GetBoxScores_0(ctx context.Context, marshaler runtime.Marshaler, client BroadageServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetBoxScoresRequest
+func request_BroadageService_GetMatchPlayers_0(ctx context.Context, marshaler runtime.Marshaler, client BroadageServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetMatchPlayersRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -182,23 +182,23 @@ func request_BroadageService_GetBoxScores_0(ctx context.Context, marshaler runti
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["match_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "match_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.MatchId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "match_id", err)
 	}
 
-	msg, err := client.GetBoxScores(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetMatchPlayers(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_BroadageService_GetBoxScores_0(ctx context.Context, marshaler runtime.Marshaler, server BroadageServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetBoxScoresRequest
+func local_request_BroadageService_GetMatchPlayers_0(ctx context.Context, marshaler runtime.Marshaler, server BroadageServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetMatchPlayersRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -208,23 +208,23 @@ func local_request_BroadageService_GetBoxScores_0(ctx context.Context, marshaler
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["match_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "match_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.MatchId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "match_id", err)
 	}
 
-	msg, err := server.GetBoxScores(ctx, &protoReq)
+	msg, err := server.GetMatchPlayers(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_BroadageService_GetBoxScores_1(ctx context.Context, marshaler runtime.Marshaler, client BroadageServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetBoxScoresRequest
+func request_BroadageService_GetMatchPlayers_1(ctx context.Context, marshaler runtime.Marshaler, client BroadageServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetMatchPlayersRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -234,23 +234,23 @@ func request_BroadageService_GetBoxScores_1(ctx context.Context, marshaler runti
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["match_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "match_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.MatchId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "match_id", err)
 	}
 
-	msg, err := client.GetBoxScores(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetMatchPlayers(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_BroadageService_GetBoxScores_1(ctx context.Context, marshaler runtime.Marshaler, server BroadageServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetBoxScoresRequest
+func local_request_BroadageService_GetMatchPlayers_1(ctx context.Context, marshaler runtime.Marshaler, server BroadageServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetMatchPlayersRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -260,17 +260,17 @@ func local_request_BroadageService_GetBoxScores_1(ctx context.Context, marshaler
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["match_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "match_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.MatchId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "match_id", err)
 	}
 
-	msg, err := server.GetBoxScores(ctx, &protoReq)
+	msg, err := server.GetMatchPlayers(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -286,14 +286,14 @@ func request_BroadageService_GetPlayByPlay_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["match_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "match_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.MatchId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "match_id", err)
 	}
 
 	msg, err := client.GetPlayByPlay(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -312,14 +312,14 @@ func local_request_BroadageService_GetPlayByPlay_0(ctx context.Context, marshale
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["match_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "match_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.MatchId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "match_id", err)
 	}
 
 	msg, err := server.GetPlayByPlay(ctx, &protoReq)
@@ -338,14 +338,14 @@ func request_BroadageService_GetPlayByPlay_1(ctx context.Context, marshaler runt
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["match_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "match_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.MatchId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "match_id", err)
 	}
 
 	msg, err := client.GetPlayByPlay(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -364,14 +364,14 @@ func local_request_BroadageService_GetPlayByPlay_1(ctx context.Context, marshale
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["match_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "match_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.MatchId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "match_id", err)
 	}
 
 	msg, err := server.GetPlayByPlay(ctx, &protoReq)
@@ -435,7 +435,7 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 
 	})
 
-	mux.Handle("GET", pattern_BroadageService_GetPlayersFromTeam_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_BroadageService_GetTeamPlayers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -443,12 +443,12 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayersFromTeam", runtime.WithHTTPPathPattern("/v1/teams/{id}/players"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetTeamPlayers", runtime.WithHTTPPathPattern("/v1/teams/{team_id}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BroadageService_GetPlayersFromTeam_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_BroadageService_GetTeamPlayers_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -456,11 +456,11 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 			return
 		}
 
-		forward_BroadageService_GetPlayersFromTeam_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_BroadageService_GetTeamPlayers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_BroadageService_GetPlayersFromTeam_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_BroadageService_GetTeamPlayers_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -468,12 +468,12 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayersFromTeam", runtime.WithHTTPPathPattern("/teams/{id}/players"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetTeamPlayers", runtime.WithHTTPPathPattern("/teams/{team_id}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BroadageService_GetPlayersFromTeam_1(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_BroadageService_GetTeamPlayers_1(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -481,11 +481,11 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 			return
 		}
 
-		forward_BroadageService_GetPlayersFromTeam_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_BroadageService_GetTeamPlayers_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_BroadageService_GetBoxScores_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_BroadageService_GetMatchPlayers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -493,12 +493,12 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetBoxScores", runtime.WithHTTPPathPattern("/v1/matches/{id}/boxscores"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetMatchPlayers", runtime.WithHTTPPathPattern("/v1/match/{match_id}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BroadageService_GetBoxScores_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_BroadageService_GetMatchPlayers_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -506,11 +506,11 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 			return
 		}
 
-		forward_BroadageService_GetBoxScores_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_BroadageService_GetMatchPlayers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_BroadageService_GetBoxScores_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_BroadageService_GetMatchPlayers_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -518,12 +518,12 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetBoxScores", runtime.WithHTTPPathPattern("/matches/{id}/boxscores"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetMatchPlayers", runtime.WithHTTPPathPattern("/match/{match_id}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BroadageService_GetBoxScores_1(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_BroadageService_GetMatchPlayers_1(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -531,7 +531,7 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 			return
 		}
 
-		forward_BroadageService_GetBoxScores_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_BroadageService_GetMatchPlayers_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -543,7 +543,7 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/v1/match/{id}/playbyplay"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/v1/match/{match_id}/playbyplay"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -568,7 +568,7 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/match/{id}/playbyplay"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/match/{match_id}/playbyplay"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -670,91 +670,91 @@ func RegisterBroadageServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 
 	})
 
-	mux.Handle("GET", pattern_BroadageService_GetPlayersFromTeam_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_BroadageService_GetTeamPlayers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayersFromTeam", runtime.WithHTTPPathPattern("/v1/teams/{id}/players"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetTeamPlayers", runtime.WithHTTPPathPattern("/v1/teams/{team_id}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BroadageService_GetPlayersFromTeam_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_BroadageService_GetTeamPlayers_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BroadageService_GetPlayersFromTeam_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_BroadageService_GetTeamPlayers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_BroadageService_GetPlayersFromTeam_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_BroadageService_GetTeamPlayers_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayersFromTeam", runtime.WithHTTPPathPattern("/teams/{id}/players"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetTeamPlayers", runtime.WithHTTPPathPattern("/teams/{team_id}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BroadageService_GetPlayersFromTeam_1(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_BroadageService_GetTeamPlayers_1(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BroadageService_GetPlayersFromTeam_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_BroadageService_GetTeamPlayers_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_BroadageService_GetBoxScores_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_BroadageService_GetMatchPlayers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetBoxScores", runtime.WithHTTPPathPattern("/v1/matches/{id}/boxscores"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetMatchPlayers", runtime.WithHTTPPathPattern("/v1/match/{match_id}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BroadageService_GetBoxScores_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_BroadageService_GetMatchPlayers_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BroadageService_GetBoxScores_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_BroadageService_GetMatchPlayers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_BroadageService_GetBoxScores_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_BroadageService_GetMatchPlayers_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetBoxScores", runtime.WithHTTPPathPattern("/matches/{id}/boxscores"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetMatchPlayers", runtime.WithHTTPPathPattern("/match/{match_id}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BroadageService_GetBoxScores_1(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_BroadageService_GetMatchPlayers_1(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BroadageService_GetBoxScores_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_BroadageService_GetMatchPlayers_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -764,7 +764,7 @@ func RegisterBroadageServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/v1/match/{id}/playbyplay"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/v1/match/{match_id}/playbyplay"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -786,7 +786,7 @@ func RegisterBroadageServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/match/{id}/playbyplay"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/match/{match_id}/playbyplay"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -810,17 +810,17 @@ var (
 
 	pattern_BroadageService_GetLiveMatches_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"matches", "live"}, ""))
 
-	pattern_BroadageService_GetPlayersFromTeam_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "teams", "id", "players"}, ""))
+	pattern_BroadageService_GetTeamPlayers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "teams", "team_id", "players"}, ""))
 
-	pattern_BroadageService_GetPlayersFromTeam_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"teams", "id", "players"}, ""))
+	pattern_BroadageService_GetTeamPlayers_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"teams", "team_id", "players"}, ""))
 
-	pattern_BroadageService_GetBoxScores_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "matches", "id", "boxscores"}, ""))
+	pattern_BroadageService_GetMatchPlayers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "match", "match_id", "players"}, ""))
 
-	pattern_BroadageService_GetBoxScores_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"matches", "id", "boxscores"}, ""))
+	pattern_BroadageService_GetMatchPlayers_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"match", "match_id", "players"}, ""))
 
-	pattern_BroadageService_GetPlayByPlay_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "match", "id", "playbyplay"}, ""))
+	pattern_BroadageService_GetPlayByPlay_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "match", "match_id", "playbyplay"}, ""))
 
-	pattern_BroadageService_GetPlayByPlay_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"match", "id", "playbyplay"}, ""))
+	pattern_BroadageService_GetPlayByPlay_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"match", "match_id", "playbyplay"}, ""))
 )
 
 var (
@@ -828,13 +828,13 @@ var (
 
 	forward_BroadageService_GetLiveMatches_1 = runtime.ForwardResponseMessage
 
-	forward_BroadageService_GetPlayersFromTeam_0 = runtime.ForwardResponseMessage
+	forward_BroadageService_GetTeamPlayers_0 = runtime.ForwardResponseMessage
 
-	forward_BroadageService_GetPlayersFromTeam_1 = runtime.ForwardResponseMessage
+	forward_BroadageService_GetTeamPlayers_1 = runtime.ForwardResponseMessage
 
-	forward_BroadageService_GetBoxScores_0 = runtime.ForwardResponseMessage
+	forward_BroadageService_GetMatchPlayers_0 = runtime.ForwardResponseMessage
 
-	forward_BroadageService_GetBoxScores_1 = runtime.ForwardResponseMessage
+	forward_BroadageService_GetMatchPlayers_1 = runtime.ForwardResponseMessage
 
 	forward_BroadageService_GetPlayByPlay_0 = runtime.ForwardResponseMessage
 

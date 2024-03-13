@@ -6,7 +6,7 @@
     "version": "1.0.0",
     "contact": {
       "name": "NBN23",
-      "url": "https://github.com/NBN23dev/proto-template",
+      "url": "https://github.com/NBN23dev/proto-broadage",
       "email": "develop@nbn23.com"
     }
   },
@@ -25,7 +25,7 @@
     "application/json"
   ],
   "paths": {
-    "/match/{id}/playbyplay": {
+    "/match/{matchId}/playbyplay": {
       "get": {
         "operationId": "BroadageService_GetPlayByPlay2",
         "responses": {
@@ -44,7 +44,38 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "matchId",
+            "description": "/ Id is the unique identifier of the match.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BroadageService"
+        ]
+      }
+    },
+    "/match/{matchId}/players": {
+      "get": {
+        "operationId": "BroadageService_GetMatchPlayers2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMatchPlayersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "matchId",
             "description": "/ Id is the unique identifier of the match.",
             "in": "path",
             "required": true,
@@ -78,14 +109,14 @@
         ]
       }
     },
-    "/matches/{id}/boxscores": {
+    "/teams/{teamId}/players": {
       "get": {
-        "operationId": "BroadageService_GetBoxScores2",
+        "operationId": "BroadageService_GetTeamPlayers2",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetBoxScoresResponse"
+              "$ref": "#/definitions/v1GetTeamPlayersResponse"
             }
           },
           "default": {
@@ -97,38 +128,7 @@
         },
         "parameters": [
           {
-            "name": "id",
-            "description": "/ Id is the unique identifier of the match.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "BroadageService"
-        ]
-      }
-    },
-    "/teams/{id}/players": {
-      "get": {
-        "operationId": "BroadageService_GetPlayersFromTeam2",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetPlayersFromTeamResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
+            "name": "teamId",
             "description": "/ Id is the unique identifier of the team.",
             "in": "path",
             "required": true,
@@ -140,7 +140,7 @@
         ]
       }
     },
-    "/v1/match/{id}/playbyplay": {
+    "/v1/match/{matchId}/playbyplay": {
       "get": {
         "operationId": "BroadageService_GetPlayByPlay",
         "responses": {
@@ -159,7 +159,38 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "matchId",
+            "description": "/ Id is the unique identifier of the match.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BroadageService"
+        ]
+      }
+    },
+    "/v1/match/{matchId}/players": {
+      "get": {
+        "operationId": "BroadageService_GetMatchPlayers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMatchPlayersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "matchId",
             "description": "/ Id is the unique identifier of the match.",
             "in": "path",
             "required": true,
@@ -193,14 +224,14 @@
         ]
       }
     },
-    "/v1/matches/{id}/boxscores": {
+    "/v1/teams/{teamId}/players": {
       "get": {
-        "operationId": "BroadageService_GetBoxScores",
+        "operationId": "BroadageService_GetTeamPlayers",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetBoxScoresResponse"
+              "$ref": "#/definitions/v1GetTeamPlayersResponse"
             }
           },
           "default": {
@@ -212,38 +243,7 @@
         },
         "parameters": [
           {
-            "name": "id",
-            "description": "/ Id is the unique identifier of the match.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "BroadageService"
-        ]
-      }
-    },
-    "/v1/teams/{id}/players": {
-      "get": {
-        "operationId": "BroadageService_GetPlayersFromTeam",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetPlayersFromTeamResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
+            "name": "teamId",
             "description": "/ Id is the unique identifier of the team.",
             "in": "path",
             "required": true,
@@ -404,10 +404,6 @@
       },
       "description": "ActorType represents the type of Actor."
     },
-    "v1BoxScore": {
-      "type": "object",
-      "title": "TODO: La tarea está mal definida (es tremendo copypaste) https://jiranbn23.atlassian.net/browse/CM-6670"
-    },
     "v1CODE": {
       "type": "string",
       "enum": [
@@ -480,20 +476,6 @@
       },
       "description": "EventPayload represents the payload of an event."
     },
-    "v1GetBoxScoresResponse": {
-      "type": "object",
-      "properties": {
-        "boxScores": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1BoxScore"
-          },
-          "description": "/ BoxScores is the box score of the match."
-        }
-      },
-      "description": "/ BoxScore represents the box score of a match."
-    },
     "v1GetLiveMatchesResponse": {
       "type": "object",
       "properties": {
@@ -507,6 +489,20 @@
         }
       },
       "description": "/ GetLiveMatchesResponse represents the response to get the live matches."
+    },
+    "v1GetMatchPlayersResponse": {
+      "type": "object",
+      "properties": {
+        "players": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Player"
+          },
+          "description": "/ players are the players of the match."
+        }
+      },
+      "description": "/ GetMatchPlayersResponse represents the response to get the box score of a match."
     },
     "v1GetPlayByPlayResponse": {
       "type": "object",
@@ -530,14 +526,14 @@
       },
       "description": "/ GetPlayByPlayResponse represents the response to get the play by play of a match."
     },
-    "v1GetPlayersFromTeamResponse": {
+    "v1GetTeamPlayersResponse": {
       "type": "object",
       "properties": {
         "players": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1Player"
+            "$ref": "#/definitions/v1TeamPlayer"
           },
           "description": "/ Players is the list of players from the team."
         }
@@ -553,11 +549,11 @@
         },
         "competitionFid": {
           "type": "string",
-          "description": "/ fid is the unique Firebase ID of the match."
+          "description": "/ fid is the unique id of the match."
         },
         "matchFid": {
           "type": "string",
-          "description": "/ fid is the unique Firebase ID of the match."
+          "description": "/ fid is the unique id of the match."
         }
       },
       "description": "/ MatchKey represents the key of a match."
@@ -565,68 +561,57 @@
     "v1Player": {
       "type": "object",
       "properties": {
-        "fid": {
-          "type": "string",
-          "description": "/ fid is the unique Firebase ID of the player."
-        },
-        "name": {
-          "type": "string",
-          "description": "/ name is the first name of the player."
-        },
-        "surname": {
-          "type": "string",
-          "description": "/ surname is the last name of the player."
-        },
-        "license": {
-          "type": "string",
-          "description": "/ license is the player's license number."
-        },
-        "imageUrl": {
-          "type": "string",
-          "description": "/ image_url is the URL of the player's image."
-        },
         "id": {
           "type": "string",
-          "description": "/ id is the unique ID of the player."
+          "description": "The unique identifier of the player."
         },
         "team": {
           "type": "string",
-          "description": "/ team is the name of the team the player belongs to."
+          "description": "The team the player belongs to."
         },
         "number": {
           "type": "string",
-          "description": "/ number is the player's jersey number."
+          "description": "The player's number."
         },
         "play": {
           "type": "boolean",
-          "description": "/ play indicates whether the player is currently playing."
+          "description": "Indicates if the player is currently playing."
         },
         "start": {
           "type": "boolean",
-          "description": "/ start indicates whether the player started the game."
+          "description": "Indicates if the player is starting the match."
         },
         "captain": {
           "type": "boolean",
-          "description": "/ captain indicates whether the player is the team captain."
+          "description": "Indicates if the player is the captain of the team."
         },
         "projectKey": {
           "type": "string",
-          "description": "/ project_key is the key of the project the player is associated with."
+          "description": "The key of the project to which the player belongs."
         },
         "created": {
           "type": "boolean",
-          "description": "/ created indicates whether the player's profile has been created."
+          "description": "Indicates if the player has been created."
         },
         "healthCheck": {
           "type": "boolean",
-          "description": "/ health_check indicates whether the player has passed the health check."
+          "description": "Indicates if the player's health check is passed."
         },
         "hidePersonalData": {
           "type": "boolean",
-          "description": "/ hide_personal_data indicates whether to hide the player's personal data."
+          "description": "Indicates if the player's personal data is hidden."
         }
       },
-      "description": "/ Player represents a player in a game."
+      "description": "Represents a player."
+    },
+    "v1PlayerType": {
+      "type": "string",
+      "enum": [
+        "PLAYER_TYPE_UNSPECIFIED",
+        "PLAYER_TYPE_TEAM"
+      ],
+      "default": "PLAYER_TYPE_UNSPECIFIED",
+      "description": "/ PLAYER_TYPE represents the type of player in a game.\n\n - PLAYER_TYPE_UNSPECIFIED: / PLAYER_TYPE_UNSPECIFIED represents an unspecified player type.\n - PLAYER_TYPE_TEAM: / PLAYER_TYPE_PLAYER represents a player."
     },
     "v1Subcode": {
       "type": "string",
@@ -648,6 +633,37 @@
       ],
       "default": "SUBCODE_IN_ARC_UNSPECIFIED",
       "description": "SUB_CODE represents the sub-code of an action in a match.\n\n - SUBCODE_IN_ARC_UNSPECIFIED: IN_ARC represents an action inside the arc.\n - SUBCODE_OUT_ARC: OUT_ARC represents an action outside the arc.\n - SUBCODE_FREE_THROW: FREE_THROW represents a free throw action.\n - SUBCODE_DUNK: DUNK represents a dunk action.\n - SUBCODE_OFFENSIVE_REBOUND: OFFENSIVE_REBOUND represents an offensive rebound action.\n - SUBCODE_DEFENSIVE_REBOUND: DEFENSIVE_REBOUND represents a defensive rebound action.\n - SUBCODE_RECEIVE_BLOCK: RECEIVE_BLOCK represents a block received action.\n - SUBCODE_RECEIVE_FOUL: RECEIVE_FOUL represents a foul received action.\n - SUBCODE_TECHNICAL: TECHNICAL represents a technical foul action.\n - SUBCODE_UNSPORTSMANLIKE: UNSPORTSMANLIKE represents an unsportsmanlike foul action.\n - SUBCODE_DISQUALIFYING: DISQUALIFYING represents a disqualifying foul action.\n - SUBCODE_BRAWL: BRAWL represents a brawl action.\n - SUBCODE_SWAP_IN: SWAP_IN represents a swap in action.\n - SUBCODE_SWAP_OUT: SWAP_OUT represents a swap out action."
+    },
+    "v1TeamPlayer": {
+      "type": "object",
+      "properties": {
+        "fid": {
+          "type": "string",
+          "description": "/ fid is the unique id of the player."
+        },
+        "name": {
+          "type": "string",
+          "description": "/ name is the first name of the player."
+        },
+        "surname": {
+          "type": "string",
+          "description": "/ surname is the last name of the player."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "/ last_name is the last name of the player."
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32",
+          "description": "/ number is the number of the player."
+        },
+        "playerType": {
+          "$ref": "#/definitions/v1PlayerType",
+          "description": "/ player_type is the type of the player."
+        }
+      },
+      "description": "/ Player represents a player in a game."
     }
   }
 }

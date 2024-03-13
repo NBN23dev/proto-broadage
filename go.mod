@@ -1,4 +1,4 @@
-module github.com/NBN23dev/proto-template
+module github.com/NBN23dev/proto-broadage
 
 go 1.22
 

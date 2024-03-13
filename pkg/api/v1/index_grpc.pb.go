@@ -21,10 +21,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	BroadageService_GetLiveMatches_FullMethodName     = "/core.template.v1.BroadageService/GetLiveMatches"
-	BroadageService_GetPlayersFromTeam_FullMethodName = "/core.template.v1.BroadageService/GetPlayersFromTeam"
-	BroadageService_GetBoxScores_FullMethodName       = "/core.template.v1.BroadageService/GetBoxScores"
-	BroadageService_GetPlayByPlay_FullMethodName      = "/core.template.v1.BroadageService/GetPlayByPlay"
+	BroadageService_GetLiveMatches_FullMethodName  = "/core.template.v1.BroadageService/GetLiveMatches"
+	BroadageService_GetTeamPlayers_FullMethodName  = "/core.template.v1.BroadageService/GetTeamPlayers"
+	BroadageService_GetMatchPlayers_FullMethodName = "/core.template.v1.BroadageService/GetMatchPlayers"
+	BroadageService_GetPlayByPlay_FullMethodName   = "/core.template.v1.BroadageService/GetPlayByPlay"
 )
 
 // BroadageServiceClient is the client API for BroadageService service.
@@ -32,8 +32,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BroadageServiceClient interface {
 	GetLiveMatches(ctx context.Context, in *GetLiveMatchesRequest, opts ...grpc.CallOption) (*GetLiveMatchesResponse, error)
-	GetPlayersFromTeam(ctx context.Context, in *GetPlayersFromTeamRequest, opts ...grpc.CallOption) (*GetPlayersFromTeamResponse, error)
-	GetBoxScores(ctx context.Context, in *GetBoxScoresRequest, opts ...grpc.CallOption) (*GetBoxScoresResponse, error)
+	GetTeamPlayers(ctx context.Context, in *GetTeamPlayersRequest, opts ...grpc.CallOption) (*GetTeamPlayersResponse, error)
+	GetMatchPlayers(ctx context.Context, in *GetMatchPlayersRequest, opts ...grpc.CallOption) (*GetMatchPlayersResponse, error)
 	GetPlayByPlay(ctx context.Context, in *GetPlayByPlayRequest, opts ...grpc.CallOption) (*GetPlayByPlayResponse, error)
 }
 
@@ -54,18 +54,18 @@ func (c *broadageServiceClient) GetLiveMatches(ctx context.Context, in *GetLiveM
 	return out, nil
 }
 
-func (c *broadageServiceClient) GetPlayersFromTeam(ctx context.Context, in *GetPlayersFromTeamRequest, opts ...grpc.CallOption) (*GetPlayersFromTeamResponse, error) {
-	out := new(GetPlayersFromTeamResponse)
-	err := c.cc.Invoke(ctx, BroadageService_GetPlayersFromTeam_FullMethodName, in, out, opts...)
+func (c *broadageServiceClient) GetTeamPlayers(ctx context.Context, in *GetTeamPlayersRequest, opts ...grpc.CallOption) (*GetTeamPlayersResponse, error) {
+	out := new(GetTeamPlayersResponse)
+	err := c.cc.Invoke(ctx, BroadageService_GetTeamPlayers_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *broadageServiceClient) GetBoxScores(ctx context.Context, in *GetBoxScoresRequest, opts ...grpc.CallOption) (*GetBoxScoresResponse, error) {
-	out := new(GetBoxScoresResponse)
-	err := c.cc.Invoke(ctx, BroadageService_GetBoxScores_FullMethodName, in, out, opts...)
+func (c *broadageServiceClient) GetMatchPlayers(ctx context.Context, in *GetMatchPlayersRequest, opts ...grpc.CallOption) (*GetMatchPlayersResponse, error) {
+	out := new(GetMatchPlayersResponse)
+	err := c.cc.Invoke(ctx, BroadageService_GetMatchPlayers_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,8 +86,8 @@ func (c *broadageServiceClient) GetPlayByPlay(ctx context.Context, in *GetPlayBy
 // for forward compatibility
 type BroadageServiceServer interface {
 	GetLiveMatches(context.Context, *GetLiveMatchesRequest) (*GetLiveMatchesResponse, error)
-	GetPlayersFromTeam(context.Context, *GetPlayersFromTeamRequest) (*GetPlayersFromTeamResponse, error)
-	GetBoxScores(context.Context, *GetBoxScoresRequest) (*GetBoxScoresResponse, error)
+	GetTeamPlayers(context.Context, *GetTeamPlayersRequest) (*GetTeamPlayersResponse, error)
+	GetMatchPlayers(context.Context, *GetMatchPlayersRequest) (*GetMatchPlayersResponse, error)
 	GetPlayByPlay(context.Context, *GetPlayByPlayRequest) (*GetPlayByPlayResponse, error)
 	mustEmbedUnimplementedBroadageServiceServer()
 }
@@ -99,11 +99,11 @@ type UnimplementedBroadageServiceServer struct {
 func (UnimplementedBroadageServiceServer) GetLiveMatches(context.Context, *GetLiveMatchesRequest) (*GetLiveMatchesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLiveMatches not implemented")
 }
-func (UnimplementedBroadageServiceServer) GetPlayersFromTeam(context.Context, *GetPlayersFromTeamRequest) (*GetPlayersFromTeamResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPlayersFromTeam not implemented")
+func (UnimplementedBroadageServiceServer) GetTeamPlayers(context.Context, *GetTeamPlayersRequest) (*GetTeamPlayersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTeamPlayers not implemented")
 }
-func (UnimplementedBroadageServiceServer) GetBoxScores(context.Context, *GetBoxScoresRequest) (*GetBoxScoresResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBoxScores not implemented")
+func (UnimplementedBroadageServiceServer) GetMatchPlayers(context.Context, *GetMatchPlayersRequest) (*GetMatchPlayersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMatchPlayers not implemented")
 }
 func (UnimplementedBroadageServiceServer) GetPlayByPlay(context.Context, *GetPlayByPlayRequest) (*GetPlayByPlayResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPlayByPlay not implemented")
@@ -139,38 +139,38 @@ func _BroadageService_GetLiveMatches_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BroadageService_GetPlayersFromTeam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetPlayersFromTeamRequest)
+func _BroadageService_GetTeamPlayers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTeamPlayersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BroadageServiceServer).GetPlayersFromTeam(ctx, in)
+		return srv.(BroadageServiceServer).GetTeamPlayers(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: BroadageService_GetPlayersFromTeam_FullMethodName,
+		FullMethod: BroadageService_GetTeamPlayers_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BroadageServiceServer).GetPlayersFromTeam(ctx, req.(*GetPlayersFromTeamRequest))
+		return srv.(BroadageServiceServer).GetTeamPlayers(ctx, req.(*GetTeamPlayersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BroadageService_GetBoxScores_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBoxScoresRequest)
+func _BroadageService_GetMatchPlayers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMatchPlayersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BroadageServiceServer).GetBoxScores(ctx, in)
+		return srv.(BroadageServiceServer).GetMatchPlayers(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: BroadageService_GetBoxScores_FullMethodName,
+		FullMethod: BroadageService_GetMatchPlayers_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BroadageServiceServer).GetBoxScores(ctx, req.(*GetBoxScoresRequest))
+		return srv.(BroadageServiceServer).GetMatchPlayers(ctx, req.(*GetMatchPlayersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -205,12 +205,12 @@ var BroadageService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _BroadageService_GetLiveMatches_Handler,
 		},
 		{
-			MethodName: "GetPlayersFromTeam",
-			Handler:    _BroadageService_GetPlayersFromTeam_Handler,
+			MethodName: "GetTeamPlayers",
+			Handler:    _BroadageService_GetTeamPlayers_Handler,
 		},
 		{
-			MethodName: "GetBoxScores",
-			Handler:    _BroadageService_GetBoxScores_Handler,
+			MethodName: "GetMatchPlayers",
+			Handler:    _BroadageService_GetMatchPlayers_Handler,
 		},
 		{
 			MethodName: "GetPlayByPlay",
