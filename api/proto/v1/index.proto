@@ -1,23 +1,21 @@
 syntax = "proto3";
 
-// This document describes the `EchoService` service and all its corresponding RPCs.
+// This document describes the `BroadageService` service and all its corresponding RPCs.
 package core.template.v1;
 
 import "google/api/annotations.proto";
-import "buf/validate/validate.proto"; // https://github.com/bufbuild/protovalidate
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "gen/go";
-
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
-      title: "Echo API";
-      version: "1.0.0";
-      contact: {
-          name: "NBN23";
-          url: "https://github.com/NBN23dev/proto-template";
-          email: "develop@nbn23.com";
-      };
+    title: "Broadage API";
+    version: "1.0.0";
+    contact: {
+      name: "NBN23";
+      url: "https://github.com/NBN23dev/proto-broadage";
+      email: "develop@nbn23.com";
+    };
   };
 
   schemes: HTTPS;
@@ -25,27 +23,279 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   produces: "application/json";
 };
 
-// EchoRequest
-//
-// EchoRequest is the request message for Echo.
-message EchoRequest {
-  string data = 1 [(buf.validate.field).string.min_len = 1];
-}
-
-// EchoResponse
-//
-// EchoResponse returns the same value that you send.
-message EchoResponse {
-  string data = 1 [(buf.validate.field).string.min_len = 1];
-}
-
-service EchoService {
-  // Echo
-  //
-  // Echo returns the same value that you send.
-  rpc Echo (EchoRequest) returns (EchoResponse) {
-    option (google.api.http) = {
-      get: "/v1/echo"
-    };
+service BroadageService {
+  rpc GetLiveMatches(GetLiveMatchesRequest) returns (GetLiveMatchesResponse) {
+    option (google.api.http) = {get: "/v1/matches/live"};
   }
+
+  rpc GetTeamPlayers(GetTeamPlayersRequest) returns (GetTeamPlayersResponse) {
+    option (google.api.http) = {get: "/v1/teams/{team_fid}/players"};
+  }
+
+  rpc GetMatchPlayers(GetMatchPlayersRequest) returns (GetMatchPlayersResponse) {
+    option (google.api.http) = {get: "/v1/match/{match_fid}/players"};
+  }
+
+  rpc GetPlayByPlay(GetPlayByPlayRequest) returns (GetPlayByPlayResponse) {
+    option (google.api.http) = {get: "/v1/match/{match_fid}/playbyplay"};
+  }
+}
+
+/// GetLiveMatchesRequest represents the request to get the live matches.
+message GetLiveMatchesRequest {}
+
+/// GetLiveMatchesResponse represents the response to get the live matches.
+message GetLiveMatchesResponse {
+  /// Matches is the list of live matches.
+  repeated MatchKey matches = 1;
+}
+
+/// MatchKey represents the key of a match.
+message MatchKey {
+  /// competition_fid is the unique id of the competition.
+  string competition_fid = 1;
+  /// fid is the unique id of the match.
+  string fid = 2;
+}
+
+/// GetPlayersFromTeamRequest represents the request to get the players from a team.
+message GetTeamPlayersRequest {
+  /// Id is the unique identifier of the team.
+  string team_fid = 1;
+}
+
+/// GetPlayersFromTeamResponse represents the response to get the players from a team.
+message GetTeamPlayersResponse {
+  /// Players is the list of players from the team.
+  repeated Player players = 1;
+}
+
+/// Player represents a player in a game.
+message Player {
+  /// fid is the unique id of the player.
+  string fid = 1;
+  /// name is the first name of the player.
+  string name = 2;
+  /// surname is the last name of the player.
+  string surname = 3;
+  /// last_name is the last name of the player.
+  string last_name = 4;
+  /// number is the number of the player.
+  int32 number = 5;
+  /// license is the license of the player.
+  string license = 6;
+}
+
+/// BoxScore represents the box score of a match.
+message GetMatchPlayersRequest {
+  /// Id is the unique identifier of the match.
+  string match_fid = 1;
+}
+
+// Represents a player.
+message MatchPlayer {
+  // The unique identifier of the player.
+  string fid = 1;
+  // The player's number.
+  string number = 3;
+  // Indicates if the player is starting the match.
+  bool start = 5;
+  // Indicates if the player is the captain of the team.
+  bool captain = 6;
+}
+
+/// GetMatchPlayersResponse represents the response to get the box score of a match.
+message GetMatchPlayersResponse {
+  /// players are the players of the match.
+  repeated MatchPlayer home_team_players = 1;
+  /// players are the players of the match.
+  repeated MatchPlayer away_team_players = 2;
+}
+
+/// GetPlayByPlayRequest represents the request to get the play by play of a match.
+message GetPlayByPlayRequest {
+  /// Id is the unique identifier of the match.
+  string match_fid = 1;
+}
+
+/// GetPlayByPlayResponse represents the response to get the play by play of a match.
+message GetPlayByPlayResponse {
+  /// PlayByPlay is the play by play of the match.
+  repeated Action actions = 1;
+  /// Events is the events of the match.
+  repeated Event events = 2;
+}
+
+// Represents an event.
+message Event {
+  // The unique identifier for the event.
+  string fid = 1;
+
+  // period represents the period of the match when the event occurred.
+  int32 period = 2;
+
+  // time is the time when the event occurred.
+  int32 time = 3;
+
+  // The code representing the event.
+  EventCode code = 4;
+}
+
+// EventCode represents the type of event in a match.
+enum EventCode {
+  // UNSPECIFIED represents an unspecified event.
+  EVENT_CODE_UNSPECIFIED = 0;
+
+  // SOM represents the start of the match.
+  EVENT_CODE_SOM = 1;
+
+  // EOM represents the end of the match.
+  EVENT_CODE_EOM = 2;
+
+  // SOQ represents the start of a quarter.
+  EVENT_CODE_SOQ = 3;
+
+  // EOQ represents the end of a quarter.
+  EVENT_CODE_EOQ = 4;
+}
+
+// SUB_CODE represents the sub-code of an action in a match.
+enum Subcode {
+  // UNSPECIFIED represents an unspecified sub-code.
+  SUBCODE_UNSPECIFIED = 0;
+
+  // IN_ARC represents an action inside the arc.
+  SUBCODE_IN_ARC = 1;
+
+  // OUT_ARC represents an action outside the arc.
+  SUBCODE_OUT_ARC = 2;
+
+  // FREE_THROW represents a free throw action.
+  SUBCODE_FREE_THROW = 3;
+
+  // DUNK represents a dunk action.
+  SUBCODE_DUNK = 4;
+
+  // OFFENSIVE_REBOUND represents an offensive rebound action.
+  SUBCODE_OFFENSIVE_REBOUND = 5;
+
+  // DEFENSIVE_REBOUND represents a defensive rebound action.
+  SUBCODE_DEFENSIVE_REBOUND = 6;
+
+  // RECEIVE_BLOCK represents a block received action.
+  SUBCODE_RECEIVE_BLOCK = 7;
+
+  // RECEIVE_FOUL represents a foul received action.
+  SUBCODE_RECEIVE_FOUL = 8;
+
+  // TECHNICAL represents a technical foul action.
+  SUBCODE_TECHNICAL = 9;
+
+  // UNSPORTSMANLIKE represents an unsportsmanlike foul action.
+  SUBCODE_UNSPORTSMANLIKE = 10;
+
+  // DISQUALIFYING represents a disqualifying foul action.
+  SUBCODE_DISQUALIFYING = 11;
+
+  // BRAWL represents a brawl action.
+  SUBCODE_BRAWL = 12;
+
+  // SWAP_IN represents a swap in action.
+  SUBCODE_SWAP_IN = 13;
+
+  // SWAP_OUT represents a swap out action.
+  SUBCODE_SWAP_OUT = 14;
+}
+
+// CODE represents the code of an action in a match.
+enum Code {
+  // UNSPECIFIED represents an unspecified action.
+  CODE_UNSPECIFIED = 0;
+
+  // CODE_POINTS represents a points action.
+  CODE_POINTS = 1;
+
+  // CODE_FOUL represents a foul action.
+  CODE_FOUL = 2;
+
+  // CODE_RECEIVE represents a receive action.
+  CODE_RECEIVE = 3;
+
+  // CODE_REBOUND represents a rebound action.
+  CODE_REBOUND = 4;
+
+  // CODE_ASSIST represents an assist action.
+  CODE_ASSIST = 5;
+
+  // CODE_TURNOVER represents a turnover action.
+  CODE_TURNOVER = 6;
+
+  // CODE_STEAL represents a steal action.
+  CODE_STEAL = 7;
+
+  // CODE_BLOCK represents a block action.
+  CODE_BLOCK = 8;
+
+  // CODE_SWAP represents a swap action.
+  CODE_SWAP = 9;
+
+  // CODE_TIMEOUT represents a timeout action.
+  CODE_TIMEOUT = 10;
+}
+
+// Actor represents the type of Actor in a match.
+enum ActorType {
+  // UNSPECIFIED represents an unspecified actor type.
+  ACTOR_TYPE_UNSPECIFIED = 0;
+
+  // PLAYER represents a player in the match.
+  ACTOR_TYPE_PLAYER = 1;
+
+  // TEAM represents a team in the match.
+  ACTOR_TYPE_TEAM = 2;
+
+  // COACH represents a coach in the match.
+  ACTOR_TYPE_COACH = 3;
+}
+
+// ActorType represents the type of Actor.
+message Actor {
+  // fid is the unique identifier of the Actor type.
+  string fid = 1;
+
+  // type is the type of the Actor.
+  Actor type = 2;
+}
+
+// Action represents a single action in a match.
+message Action {
+  // fid is the unique identifier of the action.
+  string fid = 1;
+
+  // team_fid is the unique identifier of the team that performed the action.
+  string team_fid = 2;
+
+  // Actor represents the type of Actor who performed the action.
+  Actor actor = 3;
+
+  // code represents the code of the action.
+  Code code = 4;
+
+  // sub_code represents the sub-code of the action.
+  Subcode sub_code = 5;
+
+  // value is the value associated with the action.
+  int32 value = 6;
+
+  // result indicates whether the action was successful or not.
+  bool result = 7;
+
+  // period represents the period of the match when the action occurred.
+  int32 period = 8;
+
+  // time is the time when the action occurred.
+  int32 time = 9;
+
+  // sequence is the sequence number of the action in the match.
+  int32 sequence = 10;
 }

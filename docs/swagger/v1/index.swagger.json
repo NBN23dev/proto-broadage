@@ -1,18 +1,18 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Echo API",
-    "description": "This document describes the `EchoService` service and all its corresponding RPCs.",
+    "title": "Broadage API",
+    "description": "This document describes the `BroadageService` service and all its corresponding RPCs.",
     "version": "1.0.0",
     "contact": {
       "name": "NBN23",
-      "url": "https://github.com/NBN23dev/proto-template",
+      "url": "https://github.com/NBN23dev/proto-broadage",
       "email": "develop@nbn23.com"
     }
   },
   "tags": [
     {
-      "name": "EchoService"
+      "name": "BroadageService"
     }
   ],
   "schemes": [
@@ -25,16 +25,14 @@
     "application/json"
   ],
   "paths": {
-    "/v1/echo": {
+    "/v1/match/{matchFid}/playbyplay": {
       "get": {
-        "summary": "Echo",
-        "description": "Echo returns the same value that you send.",
-        "operationId": "EchoService_Echo",
+        "operationId": "BroadageService_GetPlayByPlay",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1EchoResponse"
+              "$ref": "#/definitions/v1GetPlayByPlayResponse"
             }
           },
           "default": {
@@ -46,14 +44,99 @@
         },
         "parameters": [
           {
-            "name": "data",
-            "in": "query",
-            "required": false,
+            "name": "matchFid",
+            "description": "/ Id is the unique identifier of the match.",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
         "tags": [
-          "EchoService"
+          "BroadageService"
+        ]
+      }
+    },
+    "/v1/match/{matchFid}/players": {
+      "get": {
+        "operationId": "BroadageService_GetMatchPlayers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMatchPlayersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "matchFid",
+            "description": "/ Id is the unique identifier of the match.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BroadageService"
+        ]
+      }
+    },
+    "/v1/matches/live": {
+      "get": {
+        "operationId": "BroadageService_GetLiveMatches",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetLiveMatchesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "BroadageService"
+        ]
+      }
+    },
+    "/v1/teams/{teamFid}/players": {
+      "get": {
+        "operationId": "BroadageService_GetTeamPlayers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetTeamPlayersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "teamFid",
+            "description": "/ Id is the unique identifier of the team.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BroadageService"
         ]
       }
     }
@@ -87,15 +170,284 @@
         }
       }
     },
-    "v1EchoResponse": {
+    "v1Action": {
       "type": "object",
       "properties": {
-        "data": {
-          "type": "string"
+        "fid": {
+          "type": "string",
+          "description": "fid is the unique identifier of the action."
+        },
+        "teamFid": {
+          "type": "string",
+          "description": "team_fid is the unique identifier of the team that performed the action."
+        },
+        "actor": {
+          "$ref": "#/definitions/v1Actor",
+          "description": "Actor represents the type of Actor who performed the action."
+        },
+        "code": {
+          "$ref": "#/definitions/v1Code",
+          "description": "code represents the code of the action."
+        },
+        "subCode": {
+          "$ref": "#/definitions/v1Subcode",
+          "description": "sub_code represents the sub-code of the action."
+        },
+        "value": {
+          "type": "integer",
+          "format": "int32",
+          "description": "value is the value associated with the action."
+        },
+        "result": {
+          "type": "boolean",
+          "description": "result indicates whether the action was successful or not."
+        },
+        "period": {
+          "type": "integer",
+          "format": "int32",
+          "description": "period represents the period of the match when the action occurred."
+        },
+        "time": {
+          "type": "integer",
+          "format": "int32",
+          "description": "time is the time when the action occurred."
+        },
+        "sequence": {
+          "type": "integer",
+          "format": "int32",
+          "description": "sequence is the sequence number of the action in the match."
         }
       },
-      "description": "EchoResponse returns the same value that you send.",
-      "title": "EchoResponse"
+      "description": "Action represents a single action in a match."
+    },
+    "v1Actor": {
+      "type": "object",
+      "properties": {
+        "fid": {
+          "type": "string",
+          "description": "fid is the unique identifier of the Actor type."
+        },
+        "type": {
+          "$ref": "#/definitions/v1Actor",
+          "description": "type is the type of the Actor."
+        }
+      },
+      "description": "ActorType represents the type of Actor."
+    },
+    "v1Code": {
+      "type": "string",
+      "enum": [
+        "CODE_UNSPECIFIED",
+        "CODE_POINTS",
+        "CODE_FOUL",
+        "CODE_RECEIVE",
+        "CODE_REBOUND",
+        "CODE_ASSIST",
+        "CODE_TURNOVER",
+        "CODE_STEAL",
+        "CODE_BLOCK",
+        "CODE_SWAP",
+        "CODE_TIMEOUT"
+      ],
+      "default": "CODE_UNSPECIFIED",
+      "description": "CODE represents the code of an action in a match.\n\n - CODE_UNSPECIFIED: UNSPECIFIED represents an unspecified action.\n - CODE_POINTS: CODE_POINTS represents a points action.\n - CODE_FOUL: CODE_FOUL represents a foul action.\n - CODE_RECEIVE: CODE_RECEIVE represents a receive action.\n - CODE_REBOUND: CODE_REBOUND represents a rebound action.\n - CODE_ASSIST: CODE_ASSIST represents an assist action.\n - CODE_TURNOVER: CODE_TURNOVER represents a turnover action.\n - CODE_STEAL: CODE_STEAL represents a steal action.\n - CODE_BLOCK: CODE_BLOCK represents a block action.\n - CODE_SWAP: CODE_SWAP represents a swap action.\n - CODE_TIMEOUT: CODE_TIMEOUT represents a timeout action."
+    },
+    "v1Event": {
+      "type": "object",
+      "properties": {
+        "fid": {
+          "type": "string",
+          "description": "The unique identifier for the event."
+        },
+        "period": {
+          "type": "integer",
+          "format": "int32",
+          "description": "period represents the period of the match when the event occurred."
+        },
+        "time": {
+          "type": "integer",
+          "format": "int32",
+          "description": "time is the time when the event occurred."
+        },
+        "code": {
+          "$ref": "#/definitions/v1EventCode",
+          "description": "The code representing the event."
+        }
+      },
+      "description": "Represents an event."
+    },
+    "v1EventCode": {
+      "type": "string",
+      "enum": [
+        "EVENT_CODE_UNSPECIFIED",
+        "EVENT_CODE_SOM",
+        "EVENT_CODE_EOM",
+        "EVENT_CODE_SOQ",
+        "EVENT_CODE_EOQ"
+      ],
+      "default": "EVENT_CODE_UNSPECIFIED",
+      "description": "EventCode represents the type of event in a match.\n\n - EVENT_CODE_UNSPECIFIED: UNSPECIFIED represents an unspecified event.\n - EVENT_CODE_SOM: SOM represents the start of the match.\n - EVENT_CODE_EOM: EOM represents the end of the match.\n - EVENT_CODE_SOQ: SOQ represents the start of a quarter.\n - EVENT_CODE_EOQ: EOQ represents the end of a quarter."
+    },
+    "v1GetLiveMatchesResponse": {
+      "type": "object",
+      "properties": {
+        "matches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1MatchKey"
+          },
+          "description": "/ Matches is the list of live matches."
+        }
+      },
+      "description": "/ GetLiveMatchesResponse represents the response to get the live matches."
+    },
+    "v1GetMatchPlayersResponse": {
+      "type": "object",
+      "properties": {
+        "homeTeamPlayers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1MatchPlayer"
+          },
+          "description": "/ players are the players of the match."
+        },
+        "awayTeamPlayers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1MatchPlayer"
+          },
+          "description": "/ players are the players of the match."
+        }
+      },
+      "description": "/ GetMatchPlayersResponse represents the response to get the box score of a match."
+    },
+    "v1GetPlayByPlayResponse": {
+      "type": "object",
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Action"
+          },
+          "description": "/ PlayByPlay is the play by play of the match."
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Event"
+          },
+          "description": "/ Events is the events of the match."
+        }
+      },
+      "description": "/ GetPlayByPlayResponse represents the response to get the play by play of a match."
+    },
+    "v1GetTeamPlayersResponse": {
+      "type": "object",
+      "properties": {
+        "players": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Player"
+          },
+          "description": "/ Players is the list of players from the team."
+        }
+      },
+      "description": "/ GetPlayersFromTeamResponse represents the response to get the players from a team."
+    },
+    "v1MatchKey": {
+      "type": "object",
+      "properties": {
+        "competitionFid": {
+          "type": "string",
+          "description": "/ competition_fid is the unique id of the competition."
+        },
+        "fid": {
+          "type": "string",
+          "description": "/ fid is the unique id of the match."
+        }
+      },
+      "description": "/ MatchKey represents the key of a match."
+    },
+    "v1MatchPlayer": {
+      "type": "object",
+      "properties": {
+        "fid": {
+          "type": "string",
+          "description": "The unique identifier of the player."
+        },
+        "number": {
+          "type": "string",
+          "description": "The player's number."
+        },
+        "start": {
+          "type": "boolean",
+          "description": "Indicates if the player is starting the match."
+        },
+        "captain": {
+          "type": "boolean",
+          "description": "Indicates if the player is the captain of the team."
+        }
+      },
+      "description": "Represents a player."
+    },
+    "v1Player": {
+      "type": "object",
+      "properties": {
+        "fid": {
+          "type": "string",
+          "description": "/ fid is the unique id of the player."
+        },
+        "name": {
+          "type": "string",
+          "description": "/ name is the first name of the player."
+        },
+        "surname": {
+          "type": "string",
+          "description": "/ surname is the last name of the player."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "/ last_name is the last name of the player."
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32",
+          "description": "/ number is the number of the player."
+        },
+        "license": {
+          "type": "string",
+          "description": "/ license is the license of the player."
+        }
+      },
+      "description": "/ Player represents a player in a game."
+    },
+    "v1Subcode": {
+      "type": "string",
+      "enum": [
+        "SUBCODE_UNSPECIFIED",
+        "SUBCODE_IN_ARC",
+        "SUBCODE_OUT_ARC",
+        "SUBCODE_FREE_THROW",
+        "SUBCODE_DUNK",
+        "SUBCODE_OFFENSIVE_REBOUND",
+        "SUBCODE_DEFENSIVE_REBOUND",
+        "SUBCODE_RECEIVE_BLOCK",
+        "SUBCODE_RECEIVE_FOUL",
+        "SUBCODE_TECHNICAL",
+        "SUBCODE_UNSPORTSMANLIKE",
+        "SUBCODE_DISQUALIFYING",
+        "SUBCODE_BRAWL",
+        "SUBCODE_SWAP_IN",
+        "SUBCODE_SWAP_OUT"
+      ],
+      "default": "SUBCODE_UNSPECIFIED",
+      "description": "SUB_CODE represents the sub-code of an action in a match.\n\n - SUBCODE_UNSPECIFIED: UNSPECIFIED represents an unspecified sub-code.\n - SUBCODE_IN_ARC: IN_ARC represents an action inside the arc.\n - SUBCODE_OUT_ARC: OUT_ARC represents an action outside the arc.\n - SUBCODE_FREE_THROW: FREE_THROW represents a free throw action.\n - SUBCODE_DUNK: DUNK represents a dunk action.\n - SUBCODE_OFFENSIVE_REBOUND: OFFENSIVE_REBOUND represents an offensive rebound action.\n - SUBCODE_DEFENSIVE_REBOUND: DEFENSIVE_REBOUND represents a defensive rebound action.\n - SUBCODE_RECEIVE_BLOCK: RECEIVE_BLOCK represents a block received action.\n - SUBCODE_RECEIVE_FOUL: RECEIVE_FOUL represents a foul received action.\n - SUBCODE_TECHNICAL: TECHNICAL represents a technical foul action.\n - SUBCODE_UNSPORTSMANLIKE: UNSPORTSMANLIKE represents an unsportsmanlike foul action.\n - SUBCODE_DISQUALIFYING: DISQUALIFYING represents a disqualifying foul action.\n - SUBCODE_BRAWL: BRAWL represents a brawl action.\n - SUBCODE_SWAP_IN: SWAP_IN represents a swap in action.\n - SUBCODE_SWAP_OUT: SWAP_OUT represents a swap out action."
     }
   }
 }
