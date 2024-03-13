@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: api/proto/v1/index.proto
 
-// This document describes the `EchoService` service and all its corresponding RPCs.
+// This document describes the `BroadageService` service and all its corresponding RPCs.
 
 package _go
 

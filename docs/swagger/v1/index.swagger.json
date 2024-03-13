@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Echo API",
-    "description": "This document describes the `EchoService` service and all its corresponding RPCs.",
+    "title": "Broadage API",
+    "description": "This document describes the `BroadageService` service and all its corresponding RPCs.",
     "version": "1.0.0",
     "contact": {
       "name": "NBN23",
