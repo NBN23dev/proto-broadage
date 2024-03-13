@@ -25,122 +25,7 @@
     "application/json"
   ],
   "paths": {
-    "/match/{matchId}/playbyplay": {
-      "get": {
-        "operationId": "BroadageService_GetPlayByPlay2",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetPlayByPlayResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "matchId",
-            "description": "/ Id is the unique identifier of the match.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "BroadageService"
-        ]
-      }
-    },
-    "/match/{matchId}/players": {
-      "get": {
-        "operationId": "BroadageService_GetMatchPlayers2",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetMatchPlayersResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "matchId",
-            "description": "/ Id is the unique identifier of the match.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "BroadageService"
-        ]
-      }
-    },
-    "/matches/live": {
-      "get": {
-        "operationId": "BroadageService_GetLiveMatches2",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetLiveMatchesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "BroadageService"
-        ]
-      }
-    },
-    "/teams/{teamId}/players": {
-      "get": {
-        "operationId": "BroadageService_GetTeamPlayers2",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetTeamPlayersResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "teamId",
-            "description": "/ Id is the unique identifier of the team.",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "BroadageService"
-        ]
-      }
-    },
-    "/v1/match/{matchId}/playbyplay": {
+    "/v1/match/{matchFid}/playbyplay": {
       "get": {
         "operationId": "BroadageService_GetPlayByPlay",
         "responses": {
@@ -159,7 +44,7 @@
         },
         "parameters": [
           {
-            "name": "matchId",
+            "name": "matchFid",
             "description": "/ Id is the unique identifier of the match.",
             "in": "path",
             "required": true,
@@ -171,7 +56,7 @@
         ]
       }
     },
-    "/v1/match/{matchId}/players": {
+    "/v1/match/{matchFid}/players": {
       "get": {
         "operationId": "BroadageService_GetMatchPlayers",
         "responses": {
@@ -190,7 +75,7 @@
         },
         "parameters": [
           {
-            "name": "matchId",
+            "name": "matchFid",
             "description": "/ Id is the unique identifier of the match.",
             "in": "path",
             "required": true,
@@ -224,7 +109,7 @@
         ]
       }
     },
-    "/v1/teams/{teamId}/players": {
+    "/v1/teams/{teamFid}/players": {
       "get": {
         "operationId": "BroadageService_GetTeamPlayers",
         "responses": {
@@ -243,7 +128,7 @@
         },
         "parameters": [
           {
-            "name": "teamId",
+            "name": "teamFid",
             "description": "/ Id is the unique identifier of the team.",
             "in": "path",
             "required": true,
@@ -292,32 +177,16 @@
           "type": "string",
           "description": "fid is the unique identifier of the action."
         },
-        "matchFid": {
-          "type": "string",
-          "description": "match_fid is the unique identifier of the match where the action occurred."
-        },
-        "projectKey": {
-          "type": "string",
-          "description": "project_key is the key of the project to which the action belongs."
-        },
-        "deviceId": {
-          "type": "string",
-          "description": "device_id is the identifier of the device that recorded the action."
-        },
-        "competitionFid": {
-          "type": "string",
-          "description": "competition_fid is the unique identifier of the competition where the action occurred."
-        },
         "teamFid": {
           "type": "string",
           "description": "team_fid is the unique identifier of the team that performed the action."
         },
         "actor": {
-          "$ref": "#/definitions/v1ActorType",
+          "$ref": "#/definitions/v1Actor",
           "description": "Actor represents the type of Actor who performed the action."
         },
         "code": {
-          "$ref": "#/definitions/v1CODE",
+          "$ref": "#/definitions/v1Code",
           "description": "code represents the code of the action."
         },
         "subCode": {
@@ -343,54 +212,15 @@
           "format": "int32",
           "description": "time is the time when the action occurred."
         },
-        "matchTime": {
-          "type": "integer",
-          "format": "int32",
-          "description": "match_time is the time of the match when the action occurred."
-        },
         "sequence": {
           "type": "integer",
           "format": "int32",
           "description": "sequence is the sequence number of the action in the match."
-        },
-        "position": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "description": "position is the position on the field where the action occurred."
-        },
-        "zone": {
-          "type": "integer",
-          "format": "int32",
-          "description": "zone is the zone on the field where the action occurred."
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "created_at is the timestamp when the action was created."
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "updated_at is the timestamp when the action was last updated."
         }
       },
       "description": "Action represents a single action in a match."
     },
     "v1Actor": {
-      "type": "string",
-      "enum": [
-        "ACTOR_PLAYER_UNSPECIFIED",
-        "ACTOR_TEAM",
-        "ACTOR_COACH",
-        "ACTOR_BENCH"
-      ],
-      "default": "ACTOR_PLAYER_UNSPECIFIED",
-      "description": "Actor represents the type of Actor in a match.\n\n - ACTOR_PLAYER_UNSPECIFIED: PLAYER represents a player in the match.\n - ACTOR_TEAM: TEAM represents a team in the match.\n - ACTOR_COACH: COACH represents a coach in the match.\n - ACTOR_BENCH: BENCH represents the bench in the match."
-    },
-    "v1ActorType": {
       "type": "object",
       "properties": {
         "fid": {
@@ -404,10 +234,11 @@
       },
       "description": "ActorType represents the type of Actor."
     },
-    "v1CODE": {
+    "v1Code": {
       "type": "string",
       "enum": [
-        "CODE_POINTS_UNSPECIFIED",
+        "CODE_UNSPECIFIED",
+        "CODE_POINTS",
         "CODE_FOUL",
         "CODE_RECEIVE",
         "CODE_REBOUND",
@@ -418,8 +249,8 @@
         "CODE_SWAP",
         "CODE_TIMEOUT"
       ],
-      "default": "CODE_POINTS_UNSPECIFIED",
-      "description": "CODE represents the code of an action in a match.\n\n - CODE_POINTS_UNSPECIFIED: CODE_POINTS represents a points action.\n - CODE_FOUL: CODE_FOUL represents a foul action.\n - CODE_RECEIVE: CODE_RECEIVE represents a receive action.\n - CODE_REBOUND: CODE_REBOUND represents a rebound action.\n - CODE_ASSIST: CODE_ASSIST represents an assist action.\n - CODE_TURNOVER: CODE_TURNOVER represents a turnover action.\n - CODE_STEAL: CODE_STEAL represents a steal action.\n - CODE_BLOCK: CODE_BLOCK represents a block action.\n - CODE_SWAP: CODE_SWAP represents a swap action.\n - CODE_TIMEOUT: CODE_TIMEOUT represents a timeout action."
+      "default": "CODE_UNSPECIFIED",
+      "description": "CODE represents the code of an action in a match.\n\n - CODE_UNSPECIFIED: UNSPECIFIED represents an unspecified action.\n - CODE_POINTS: CODE_POINTS represents a points action.\n - CODE_FOUL: CODE_FOUL represents a foul action.\n - CODE_RECEIVE: CODE_RECEIVE represents a receive action.\n - CODE_REBOUND: CODE_REBOUND represents a rebound action.\n - CODE_ASSIST: CODE_ASSIST represents an assist action.\n - CODE_TURNOVER: CODE_TURNOVER represents a turnover action.\n - CODE_STEAL: CODE_STEAL represents a steal action.\n - CODE_BLOCK: CODE_BLOCK represents a block action.\n - CODE_SWAP: CODE_SWAP represents a swap action.\n - CODE_TIMEOUT: CODE_TIMEOUT represents a timeout action."
     },
     "v1Event": {
       "type": "object",
@@ -427,41 +258,6 @@
         "fid": {
           "type": "string",
           "description": "The unique identifier for the event."
-        },
-        "projectKey": {
-          "type": "string",
-          "description": "The project key associated with the event."
-        },
-        "competitionFid": {
-          "type": "string",
-          "description": "The unique identifier for the competition associated with the event."
-        },
-        "code": {
-          "type": "string",
-          "description": "The code representing the event."
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of the event."
-        },
-        "payload": {
-          "$ref": "#/definitions/v1EventPayload",
-          "description": "The payload data associated with the event."
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The timestamp when the event was created."
-        }
-      },
-      "description": "Represents an event."
-    },
-    "v1EventPayload": {
-      "type": "object",
-      "properties": {
-        "matchFid": {
-          "type": "string",
-          "description": "match_fid is the unique identifier of the match where the event occurred."
         },
         "period": {
           "type": "integer",
@@ -472,9 +268,25 @@
           "type": "integer",
           "format": "int32",
           "description": "time is the time when the event occurred."
+        },
+        "code": {
+          "$ref": "#/definitions/v1EventCode",
+          "description": "The code representing the event."
         }
       },
-      "description": "EventPayload represents the payload of an event."
+      "description": "Represents an event."
+    },
+    "v1EventCode": {
+      "type": "string",
+      "enum": [
+        "EVENT_CODE_UNSPECIFIED",
+        "EVENT_CODE_SOM",
+        "EVENT_CODE_EOM",
+        "EVENT_CODE_SOQ",
+        "EVENT_CODE_EOQ"
+      ],
+      "default": "EVENT_CODE_UNSPECIFIED",
+      "description": "EventCode represents the type of event in a match.\n\n - EVENT_CODE_UNSPECIFIED: UNSPECIFIED represents an unspecified event.\n - EVENT_CODE_SOM: SOM represents the start of the match.\n - EVENT_CODE_EOM: EOM represents the end of the match.\n - EVENT_CODE_SOQ: SOQ represents the start of a quarter.\n - EVENT_CODE_EOQ: EOQ represents the end of a quarter."
     },
     "v1GetLiveMatchesResponse": {
       "type": "object",
@@ -493,11 +305,19 @@
     "v1GetMatchPlayersResponse": {
       "type": "object",
       "properties": {
-        "players": {
+        "homeTeamPlayers": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1Player"
+            "$ref": "#/definitions/v1MatchPlayer"
+          },
+          "description": "/ players are the players of the match."
+        },
+        "awayTeamPlayers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1MatchPlayer"
           },
           "description": "/ players are the players of the match."
         }
@@ -533,7 +353,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1TeamPlayer"
+            "$ref": "#/definitions/v1Player"
           },
           "description": "/ Players is the list of players from the team."
         }
@@ -543,39 +363,27 @@
     "v1MatchKey": {
       "type": "object",
       "properties": {
-        "projectKey": {
-          "type": "string",
-          "description": "/ id is the unique identifier of the match."
-        },
         "competitionFid": {
           "type": "string",
-          "description": "/ fid is the unique id of the match."
+          "description": "/ competition_fid is the unique id of the competition."
         },
-        "matchFid": {
+        "fid": {
           "type": "string",
           "description": "/ fid is the unique id of the match."
         }
       },
       "description": "/ MatchKey represents the key of a match."
     },
-    "v1Player": {
+    "v1MatchPlayer": {
       "type": "object",
       "properties": {
-        "id": {
+        "fid": {
           "type": "string",
           "description": "The unique identifier of the player."
-        },
-        "team": {
-          "type": "string",
-          "description": "The team the player belongs to."
         },
         "number": {
           "type": "string",
           "description": "The player's number."
-        },
-        "play": {
-          "type": "boolean",
-          "description": "Indicates if the player is currently playing."
         },
         "start": {
           "type": "boolean",
@@ -584,57 +392,11 @@
         "captain": {
           "type": "boolean",
           "description": "Indicates if the player is the captain of the team."
-        },
-        "projectKey": {
-          "type": "string",
-          "description": "The key of the project to which the player belongs."
-        },
-        "created": {
-          "type": "boolean",
-          "description": "Indicates if the player has been created."
-        },
-        "healthCheck": {
-          "type": "boolean",
-          "description": "Indicates if the player's health check is passed."
-        },
-        "hidePersonalData": {
-          "type": "boolean",
-          "description": "Indicates if the player's personal data is hidden."
         }
       },
       "description": "Represents a player."
     },
-    "v1PlayerType": {
-      "type": "string",
-      "enum": [
-        "PLAYER_TYPE_UNSPECIFIED",
-        "PLAYER_TYPE_TEAM"
-      ],
-      "default": "PLAYER_TYPE_UNSPECIFIED",
-      "description": "/ PLAYER_TYPE represents the type of player in a game.\n\n - PLAYER_TYPE_UNSPECIFIED: / PLAYER_TYPE_UNSPECIFIED represents an unspecified player type.\n - PLAYER_TYPE_TEAM: / PLAYER_TYPE_PLAYER represents a player."
-    },
-    "v1Subcode": {
-      "type": "string",
-      "enum": [
-        "SUBCODE_IN_ARC_UNSPECIFIED",
-        "SUBCODE_OUT_ARC",
-        "SUBCODE_FREE_THROW",
-        "SUBCODE_DUNK",
-        "SUBCODE_OFFENSIVE_REBOUND",
-        "SUBCODE_DEFENSIVE_REBOUND",
-        "SUBCODE_RECEIVE_BLOCK",
-        "SUBCODE_RECEIVE_FOUL",
-        "SUBCODE_TECHNICAL",
-        "SUBCODE_UNSPORTSMANLIKE",
-        "SUBCODE_DISQUALIFYING",
-        "SUBCODE_BRAWL",
-        "SUBCODE_SWAP_IN",
-        "SUBCODE_SWAP_OUT"
-      ],
-      "default": "SUBCODE_IN_ARC_UNSPECIFIED",
-      "description": "SUB_CODE represents the sub-code of an action in a match.\n\n - SUBCODE_IN_ARC_UNSPECIFIED: IN_ARC represents an action inside the arc.\n - SUBCODE_OUT_ARC: OUT_ARC represents an action outside the arc.\n - SUBCODE_FREE_THROW: FREE_THROW represents a free throw action.\n - SUBCODE_DUNK: DUNK represents a dunk action.\n - SUBCODE_OFFENSIVE_REBOUND: OFFENSIVE_REBOUND represents an offensive rebound action.\n - SUBCODE_DEFENSIVE_REBOUND: DEFENSIVE_REBOUND represents a defensive rebound action.\n - SUBCODE_RECEIVE_BLOCK: RECEIVE_BLOCK represents a block received action.\n - SUBCODE_RECEIVE_FOUL: RECEIVE_FOUL represents a foul received action.\n - SUBCODE_TECHNICAL: TECHNICAL represents a technical foul action.\n - SUBCODE_UNSPORTSMANLIKE: UNSPORTSMANLIKE represents an unsportsmanlike foul action.\n - SUBCODE_DISQUALIFYING: DISQUALIFYING represents a disqualifying foul action.\n - SUBCODE_BRAWL: BRAWL represents a brawl action.\n - SUBCODE_SWAP_IN: SWAP_IN represents a swap in action.\n - SUBCODE_SWAP_OUT: SWAP_OUT represents a swap out action."
-    },
-    "v1TeamPlayer": {
+    "v1Player": {
       "type": "object",
       "properties": {
         "fid": {
@@ -658,12 +420,34 @@
           "format": "int32",
           "description": "/ number is the number of the player."
         },
-        "playerType": {
-          "$ref": "#/definitions/v1PlayerType",
-          "description": "/ player_type is the type of the player."
+        "license": {
+          "type": "string",
+          "description": "/ license is the license of the player."
         }
       },
       "description": "/ Player represents a player in a game."
+    },
+    "v1Subcode": {
+      "type": "string",
+      "enum": [
+        "SUBCODE_UNSPECIFIED",
+        "SUBCODE_IN_ARC",
+        "SUBCODE_OUT_ARC",
+        "SUBCODE_FREE_THROW",
+        "SUBCODE_DUNK",
+        "SUBCODE_OFFENSIVE_REBOUND",
+        "SUBCODE_DEFENSIVE_REBOUND",
+        "SUBCODE_RECEIVE_BLOCK",
+        "SUBCODE_RECEIVE_FOUL",
+        "SUBCODE_TECHNICAL",
+        "SUBCODE_UNSPORTSMANLIKE",
+        "SUBCODE_DISQUALIFYING",
+        "SUBCODE_BRAWL",
+        "SUBCODE_SWAP_IN",
+        "SUBCODE_SWAP_OUT"
+      ],
+      "default": "SUBCODE_UNSPECIFIED",
+      "description": "SUB_CODE represents the sub-code of an action in a match.\n\n - SUBCODE_UNSPECIFIED: UNSPECIFIED represents an unspecified sub-code.\n - SUBCODE_IN_ARC: IN_ARC represents an action inside the arc.\n - SUBCODE_OUT_ARC: OUT_ARC represents an action outside the arc.\n - SUBCODE_FREE_THROW: FREE_THROW represents a free throw action.\n - SUBCODE_DUNK: DUNK represents a dunk action.\n - SUBCODE_OFFENSIVE_REBOUND: OFFENSIVE_REBOUND represents an offensive rebound action.\n - SUBCODE_DEFENSIVE_REBOUND: DEFENSIVE_REBOUND represents a defensive rebound action.\n - SUBCODE_RECEIVE_BLOCK: RECEIVE_BLOCK represents a block received action.\n - SUBCODE_RECEIVE_FOUL: RECEIVE_FOUL represents a foul received action.\n - SUBCODE_TECHNICAL: TECHNICAL represents a technical foul action.\n - SUBCODE_UNSPORTSMANLIKE: UNSPORTSMANLIKE represents an unsportsmanlike foul action.\n - SUBCODE_DISQUALIFYING: DISQUALIFYING represents a disqualifying foul action.\n - SUBCODE_BRAWL: BRAWL represents a brawl action.\n - SUBCODE_SWAP_IN: SWAP_IN represents a swap in action.\n - SUBCODE_SWAP_OUT: SWAP_OUT represents a swap out action."
     }
   }
 }
