@@ -219,7 +219,7 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetLiveMatches", runtime.WithHTTPPathPattern("/v1/matches/live"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.broadage.v1.BroadageService/GetLiveMatches", runtime.WithHTTPPathPattern("/v1/matches/live"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -244,7 +244,7 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetTeamPlayers", runtime.WithHTTPPathPattern("/v1/teams/{team_fid}/players"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.broadage.v1.BroadageService/GetTeamPlayers", runtime.WithHTTPPathPattern("/v1/teams/{team_fid}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -269,7 +269,7 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetMatchPlayers", runtime.WithHTTPPathPattern("/v1/match/{match_fid}/players"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.broadage.v1.BroadageService/GetMatchPlayers", runtime.WithHTTPPathPattern("/v1/match/{match_fid}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -294,7 +294,7 @@ func RegisterBroadageServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/v1/match/{match_fid}/playbyplay"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/core.broadage.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/v1/match/{match_fid}/playbyplay"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -358,7 +358,7 @@ func RegisterBroadageServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetLiveMatches", runtime.WithHTTPPathPattern("/v1/matches/live"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.broadage.v1.BroadageService/GetLiveMatches", runtime.WithHTTPPathPattern("/v1/matches/live"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -380,7 +380,7 @@ func RegisterBroadageServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetTeamPlayers", runtime.WithHTTPPathPattern("/v1/teams/{team_fid}/players"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.broadage.v1.BroadageService/GetTeamPlayers", runtime.WithHTTPPathPattern("/v1/teams/{team_fid}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -402,7 +402,7 @@ func RegisterBroadageServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetMatchPlayers", runtime.WithHTTPPathPattern("/v1/match/{match_fid}/players"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.broadage.v1.BroadageService/GetMatchPlayers", runtime.WithHTTPPathPattern("/v1/match/{match_fid}/players"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -424,7 +424,7 @@ func RegisterBroadageServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.template.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/v1/match/{match_fid}/playbyplay"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/core.broadage.v1.BroadageService/GetPlayByPlay", runtime.WithHTTPPathPattern("/v1/match/{match_fid}/playbyplay"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
