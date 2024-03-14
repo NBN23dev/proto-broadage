@@ -21,10 +21,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	BroadageService_GetLiveMatches_FullMethodName  = "/core.template.v1.BroadageService/GetLiveMatches"
-	BroadageService_GetTeamPlayers_FullMethodName  = "/core.template.v1.BroadageService/GetTeamPlayers"
-	BroadageService_GetMatchPlayers_FullMethodName = "/core.template.v1.BroadageService/GetMatchPlayers"
-	BroadageService_GetPlayByPlay_FullMethodName   = "/core.template.v1.BroadageService/GetPlayByPlay"
+	BroadageService_GetLiveMatches_FullMethodName  = "/core.broadage.v1.BroadageService/GetLiveMatches"
+	BroadageService_GetTeamPlayers_FullMethodName  = "/core.broadage.v1.BroadageService/GetTeamPlayers"
+	BroadageService_GetMatchPlayers_FullMethodName = "/core.broadage.v1.BroadageService/GetMatchPlayers"
+	BroadageService_GetPlayByPlay_FullMethodName   = "/core.broadage.v1.BroadageService/GetPlayByPlay"
 )
 
 // BroadageServiceClient is the client API for BroadageService service.
@@ -197,7 +197,7 @@ func _BroadageService_GetPlayByPlay_Handler(srv interface{}, ctx context.Context
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var BroadageService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "core.template.v1.BroadageService",
+	ServiceName: "core.broadage.v1.BroadageService",
 	HandlerType: (*BroadageServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
