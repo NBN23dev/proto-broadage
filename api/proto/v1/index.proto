@@ -67,11 +67,11 @@ message GetTeamPlayersRequest {
 /// GetPlayersFromTeamResponse represents the response to get the players from a team.
 message GetTeamPlayersResponse {
   /// Players is the list of players from the team.
-  repeated Player players = 1;
+  repeated TeamPlayer players = 1;
 }
 
 /// Player represents a player in a game.
-message Player {
+message TeamPlayer {
   /// fid is the unique id of the player.
   string fid = 1;
   /// name is the first name of the player.
@@ -121,13 +121,13 @@ message GetPlayByPlayRequest {
 /// GetPlayByPlayResponse represents the response to get the play by play of a match.
 message GetPlayByPlayResponse {
   /// PlayByPlay is the play by play of the match.
-  repeated Action actions = 1;
+  repeated MatchEvent actions = 1;
   /// Events is the events of the match.
-  repeated Event events = 2;
+  repeated MatchEvent events = 2;
 }
 
 // Represents an event.
-message Event {
+message MatchEvent {
   // The unique identifier for the event.
   string fid = 1;
 
@@ -267,8 +267,8 @@ message Actor {
   Actor type = 2;
 }
 
-// Action represents a single action in a match.
-message Action {
+// MatchEvent represents a single action in a match.
+message MatchAction {
   // fid is the unique identifier of the action.
   string fid = 1;
 
