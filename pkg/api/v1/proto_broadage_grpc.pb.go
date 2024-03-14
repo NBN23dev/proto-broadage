@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: api/proto/v1/index.proto
+// source: api/proto/v1/proto_broadage.proto
 
 // This document describes the `BroadageService` service and all its corresponding RPCs.
 
@@ -218,5 +218,5 @@ var BroadageService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/proto/v1/index.proto",
+	Metadata: "api/proto/v1/proto_broadage.proto",
 }
