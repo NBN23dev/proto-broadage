@@ -373,7 +373,12 @@
         "time": {
           "type": "integer",
           "format": "int32",
-          "description": "time is the time when the event occurred."
+          "description": "time is the descending period ellapse, in milliseconds, when the event occurred."
+        },
+        "sequence": {
+          "type": "integer",
+          "format": "int32",
+          "description": "sequence is the sequence number of the event in the match."
         },
         "code": {
           "$ref": "#/definitions/v1EventCode",

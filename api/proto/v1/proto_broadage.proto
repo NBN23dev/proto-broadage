@@ -134,8 +134,11 @@ message MatchEvent {
   // period represents the period of the match when the event occurred.
   int32 period = 2;
 
-  // time is the time when the event occurred.
+  // time is the descending period ellapse, in milliseconds, when the event occurred.
   int32 time = 3;
+
+  // sequence is the sequence number of the event in the match.
+  int32 sequence = 10;
 
   // The code representing the event.
   EventCode code = 4;
