@@ -121,7 +121,7 @@ message GetPlayByPlayRequest {
 /// GetPlayByPlayResponse represents the response to get the play by play of a match.
 message GetPlayByPlayResponse {
   /// PlayByPlay is the play by play of the match.
-  repeated MatchEvent actions = 1;
+  repeated MatchAction actions = 1;
   /// Events is the events of the match.
   repeated MatchEvent events = 2;
 }
@@ -160,87 +160,87 @@ enum EventCode {
 }
 
 // SUB_CODE represents the sub-code of an action in a match.
-enum Subcode {
+enum ActionSubcode {
   // UNSPECIFIED represents an unspecified sub-code.
-  SUBCODE_UNSPECIFIED = 0;
+  ACTION_SUBCODE_UNSPECIFIED = 0;
 
   // IN_ARC represents an action inside the arc.
-  SUBCODE_IN_ARC = 1;
+  ACTION_SUBCODE_IN_ARC = 1;
 
   // OUT_ARC represents an action outside the arc.
-  SUBCODE_OUT_ARC = 2;
+  ACTION_SUBCODE_OUT_ARC = 2;
 
   // FREE_THROW represents a free throw action.
-  SUBCODE_FREE_THROW = 3;
+  ACTION_SUBCODE_FREE_THROW = 3;
 
   // DUNK represents a dunk action.
-  SUBCODE_DUNK = 4;
+  ACTION_SUBCODE_DUNK = 4;
 
   // OFFENSIVE_REBOUND represents an offensive rebound action.
-  SUBCODE_OFFENSIVE_REBOUND = 5;
+  ACTION_SUBCODE_OFFENSIVE_REBOUND = 5;
 
   // DEFENSIVE_REBOUND represents a defensive rebound action.
-  SUBCODE_DEFENSIVE_REBOUND = 6;
+  ACTION_SUBCODE_DEFENSIVE_REBOUND = 6;
 
   // RECEIVE_BLOCK represents a block received action.
-  SUBCODE_RECEIVE_BLOCK = 7;
+  ACTION_SUBCODE_RECEIVE_BLOCK = 7;
 
   // RECEIVE_FOUL represents a foul received action.
-  SUBCODE_RECEIVE_FOUL = 8;
+  ACTION_SUBCODE_RECEIVE_FOUL = 8;
 
   // TECHNICAL represents a technical foul action.
-  SUBCODE_TECHNICAL = 9;
+  ACTION_SUBCODE_TECHNICAL = 9;
 
   // UNSPORTSMANLIKE represents an unsportsmanlike foul action.
-  SUBCODE_UNSPORTSMANLIKE = 10;
+  ACTION_SUBCODE_UNSPORTSMANLIKE = 10;
 
   // DISQUALIFYING represents a disqualifying foul action.
-  SUBCODE_DISQUALIFYING = 11;
+  ACTION_SUBCODE_DISQUALIFYING = 11;
 
   // BRAWL represents a brawl action.
-  SUBCODE_BRAWL = 12;
+  ACTION_SUBCODE_BRAWL = 12;
 
   // SWAP_IN represents a swap in action.
-  SUBCODE_SWAP_IN = 13;
+  ACTION_SUBCODE_SWAP_IN = 13;
 
   // SWAP_OUT represents a swap out action.
-  SUBCODE_SWAP_OUT = 14;
+  ACTION_SUBCODE_SWAP_OUT = 14;
 }
 
 // CODE represents the code of an action in a match.
-enum Code {
-  // UNSPECIFIED represents an unspecified action.
-  CODE_UNSPECIFIED = 0;
+enum ActionCode {
+  // ACTION_CODE_UNSPECIFIED represents an unspecified action.
+  ACTION_CODE_UNSPECIFIED = 0;
 
-  // CODE_POINTS represents a points action.
-  CODE_POINTS = 1;
+  // ACTION_CODE_POINTS represents a points action.
+  ACTION_CODE_POINTS = 1;
 
-  // CODE_FOUL represents a foul action.
-  CODE_FOUL = 2;
+  // ACTION_CODE_FOUL represents a foul action.
+  ACTION_CODE_FOUL = 2;
 
-  // CODE_RECEIVE represents a receive action.
-  CODE_RECEIVE = 3;
+  // ACTION_CODE_RECEIVE represents a receive action.
+  ACTION_CODE_RECEIVE = 3;
 
-  // CODE_REBOUND represents a rebound action.
-  CODE_REBOUND = 4;
+  // ACTION_CODE_REBOUND represents a rebound action.
+  ACTION_CODE_REBOUND = 4;
 
-  // CODE_ASSIST represents an assist action.
-  CODE_ASSIST = 5;
+  // ACTION_CODE_ASSIST represents an assist action.
+  ACTION_CODE_ASSIST = 5;
 
-  // CODE_TURNOVER represents a turnover action.
-  CODE_TURNOVER = 6;
+  // ACTION_CODE_TURNOVER represents a turnover action.
+  ACTION_CODE_TURNOVER = 6;
 
-  // CODE_STEAL represents a steal action.
-  CODE_STEAL = 7;
+  // ACTION_CODE_STEAL represents a steal action.
+  ACTION_CODE_STEAL = 7;
 
-  // CODE_BLOCK represents a block action.
-  CODE_BLOCK = 8;
+  // ACTION_CODE_BLOCK represents a block action.
+  ACTION_CODE_BLOCK = 8;
 
-  // CODE_SWAP represents a swap action.
-  CODE_SWAP = 9;
+  // ACTION_CODE_SWAP represents a swap action.
+  ACTION_CODE_SWAP = 9;
 
-  // CODE_TIMEOUT represents a timeout action.
-  CODE_TIMEOUT = 10;
+  // ACTION_CODE_TIMEOUT represents a timeout action.
+  ACTION_CODE_TIMEOUT = 10;
 }
 
 // Actor represents the type of Actor in a match.
@@ -279,10 +279,10 @@ message MatchAction {
   Actor actor = 3;
 
   // code represents the code of the action.
-  Code code = 4;
+  ActionCode code = 4;
 
   // sub_code represents the sub-code of the action.
-  Subcode sub_code = 5;
+  ActionSubcode sub_code = 5;
 
   // value is the value associated with the action.
   int32 value = 6;
@@ -293,7 +293,7 @@ message MatchAction {
   // period represents the period of the match when the action occurred.
   int32 period = 8;
 
-  // time is the time when the action occurred.
+  // time is the descending period ellapse, in milliseconds, when the action occurred.
   int32 time = 9;
 
   // sequence is the sequence number of the action in the match.
