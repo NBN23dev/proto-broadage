@@ -138,10 +138,10 @@ message MatchEvent {
   int32 time = 3;
 
   // sequence is the sequence number of the event in the match.
-  int32 sequence = 10;
+  int32 sequence = 4;
 
   // The code representing the event.
-  EventCode code = 4;
+  EventCode code = 5;
 }
 
 // EventCode represents the type of event in a match.
