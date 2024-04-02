@@ -170,6 +170,60 @@
         }
       }
     },
+    "v1ActionCode": {
+      "type": "string",
+      "enum": [
+        "ACTION_CODE_UNSPECIFIED",
+        "ACTION_CODE_POINTS",
+        "ACTION_CODE_FOUL",
+        "ACTION_CODE_RECEIVE",
+        "ACTION_CODE_REBOUND",
+        "ACTION_CODE_ASSIST",
+        "ACTION_CODE_TURNOVER",
+        "ACTION_CODE_STEAL",
+        "ACTION_CODE_BLOCK",
+        "ACTION_CODE_SWAP",
+        "ACTION_CODE_TIMEOUT"
+      ],
+      "default": "ACTION_CODE_UNSPECIFIED",
+      "description": "CODE represents the code of an action in a match.\n\n - ACTION_CODE_UNSPECIFIED: ACTION_CODE_UNSPECIFIED represents an unspecified action.\n - ACTION_CODE_POINTS: ACTION_CODE_POINTS represents a points action.\n - ACTION_CODE_FOUL: ACTION_CODE_FOUL represents a foul action.\n - ACTION_CODE_RECEIVE: ACTION_CODE_RECEIVE represents a receive action.\n - ACTION_CODE_REBOUND: ACTION_CODE_REBOUND represents a rebound action.\n - ACTION_CODE_ASSIST: ACTION_CODE_ASSIST represents an assist action.\n - ACTION_CODE_TURNOVER: ACTION_CODE_TURNOVER represents a turnover action.\n - ACTION_CODE_STEAL: ACTION_CODE_STEAL represents a steal action.\n - ACTION_CODE_BLOCK: ACTION_CODE_BLOCK represents a block action.\n - ACTION_CODE_SWAP: ACTION_CODE_SWAP represents a swap action.\n - ACTION_CODE_TIMEOUT: ACTION_CODE_TIMEOUT represents a timeout action."
+    },
+    "v1ActionSubcode": {
+      "type": "string",
+      "enum": [
+        "ACTION_SUBCODE_UNSPECIFIED",
+        "ACTION_SUBCODE_IN_ARC",
+        "ACTION_SUBCODE_OUT_ARC",
+        "ACTION_SUBCODE_FREE_THROW",
+        "ACTION_SUBCODE_DUNK",
+        "ACTION_SUBCODE_OFFENSIVE_REBOUND",
+        "ACTION_SUBCODE_DEFENSIVE_REBOUND",
+        "ACTION_SUBCODE_RECEIVE_BLOCK",
+        "ACTION_SUBCODE_RECEIVE_FOUL",
+        "ACTION_SUBCODE_TECHNICAL",
+        "ACTION_SUBCODE_UNSPORTSMANLIKE",
+        "ACTION_SUBCODE_DISQUALIFYING",
+        "ACTION_SUBCODE_BRAWL",
+        "ACTION_SUBCODE_SWAP_IN",
+        "ACTION_SUBCODE_SWAP_OUT"
+      ],
+      "default": "ACTION_SUBCODE_UNSPECIFIED",
+      "description": "SUB_CODE represents the sub-code of an action in a match.\n\n - ACTION_SUBCODE_UNSPECIFIED: UNSPECIFIED represents an unspecified sub-code.\n - ACTION_SUBCODE_IN_ARC: IN_ARC represents an action inside the arc.\n - ACTION_SUBCODE_OUT_ARC: OUT_ARC represents an action outside the arc.\n - ACTION_SUBCODE_FREE_THROW: FREE_THROW represents a free throw action.\n - ACTION_SUBCODE_DUNK: DUNK represents a dunk action.\n - ACTION_SUBCODE_OFFENSIVE_REBOUND: OFFENSIVE_REBOUND represents an offensive rebound action.\n - ACTION_SUBCODE_DEFENSIVE_REBOUND: DEFENSIVE_REBOUND represents a defensive rebound action.\n - ACTION_SUBCODE_RECEIVE_BLOCK: RECEIVE_BLOCK represents a block received action.\n - ACTION_SUBCODE_RECEIVE_FOUL: RECEIVE_FOUL represents a foul received action.\n - ACTION_SUBCODE_TECHNICAL: TECHNICAL represents a technical foul action.\n - ACTION_SUBCODE_UNSPORTSMANLIKE: UNSPORTSMANLIKE represents an unsportsmanlike foul action.\n - ACTION_SUBCODE_DISQUALIFYING: DISQUALIFYING represents a disqualifying foul action.\n - ACTION_SUBCODE_BRAWL: BRAWL represents a brawl action.\n - ACTION_SUBCODE_SWAP_IN: SWAP_IN represents a swap in action.\n - ACTION_SUBCODE_SWAP_OUT: SWAP_OUT represents a swap out action."
+    },
+    "v1Actor": {
+      "type": "object",
+      "properties": {
+        "fid": {
+          "type": "string",
+          "description": "fid is the unique identifier of the Actor type."
+        },
+        "type": {
+          "$ref": "#/definitions/v1Actor",
+          "description": "type is the type of the Actor."
+        }
+      },
+      "description": "ActorType represents the type of Actor."
+    },
     "v1EventCode": {
       "type": "string",
       "enum": [
@@ -225,7 +279,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1MatchEvent"
+            "$ref": "#/definitions/v1MatchAction"
           },
           "description": "/ PlayByPlay is the play by play of the match."
         },
@@ -253,6 +307,56 @@
         }
       },
       "description": "/ GetPlayersFromTeamResponse represents the response to get the players from a team."
+    },
+    "v1MatchAction": {
+      "type": "object",
+      "properties": {
+        "fid": {
+          "type": "string",
+          "description": "fid is the unique identifier of the action."
+        },
+        "teamFid": {
+          "type": "string",
+          "description": "team_fid is the unique identifier of the team that performed the action."
+        },
+        "actor": {
+          "$ref": "#/definitions/v1Actor",
+          "description": "Actor represents the type of Actor who performed the action."
+        },
+        "code": {
+          "$ref": "#/definitions/v1ActionCode",
+          "description": "code represents the code of the action."
+        },
+        "subCode": {
+          "$ref": "#/definitions/v1ActionSubcode",
+          "description": "sub_code represents the sub-code of the action."
+        },
+        "value": {
+          "type": "integer",
+          "format": "int32",
+          "description": "value is the value associated with the action."
+        },
+        "result": {
+          "type": "boolean",
+          "description": "result indicates whether the action was successful or not."
+        },
+        "period": {
+          "type": "integer",
+          "format": "int32",
+          "description": "period represents the period of the match when the action occurred."
+        },
+        "time": {
+          "type": "integer",
+          "format": "int32",
+          "description": "time is the descending period ellapse, in milliseconds, when the action occurred."
+        },
+        "sequence": {
+          "type": "integer",
+          "format": "int32",
+          "description": "sequence is the sequence number of the action in the match."
+        }
+      },
+      "description": "MatchEvent represents a single action in a match."
     },
     "v1MatchEvent": {
       "type": "object",
