@@ -45,10 +45,18 @@
         "parameters": [
           {
             "name": "matchFid",
-            "description": "/ Id is the unique identifier of the match.",
+            "description": "/ match_fid is the unique identifier of the match.",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "fromSequenceNo",
+            "description": "/ from_sequence_no is an optional argument specifying the number of sequence\n/ from which the play by play data will be returned",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -218,11 +226,22 @@
           "description": "fid is the unique identifier of the Actor type."
         },
         "type": {
-          "$ref": "#/definitions/v1Actor",
+          "$ref": "#/definitions/v1ActorType",
           "description": "type is the type of the Actor."
         }
       },
       "description": "ActorType represents the type of Actor."
+    },
+    "v1ActorType": {
+      "type": "string",
+      "enum": [
+        "ACTOR_TYPE_UNSPECIFIED",
+        "ACTOR_TYPE_PLAYER",
+        "ACTOR_TYPE_TEAM",
+        "ACTOR_TYPE_COACH"
+      ],
+      "default": "ACTOR_TYPE_UNSPECIFIED",
+      "description": "Actor represents the type of Actor in a match.\n\n - ACTOR_TYPE_UNSPECIFIED: UNSPECIFIED represents an unspecified actor type.\n - ACTOR_TYPE_PLAYER: PLAYER represents a player in the match.\n - ACTOR_TYPE_TEAM: TEAM represents a team in the match.\n - ACTOR_TYPE_COACH: COACH represents a coach in the match."
     },
     "v1EventCode": {
       "type": "string",

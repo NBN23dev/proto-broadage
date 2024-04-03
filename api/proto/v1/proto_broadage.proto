@@ -114,8 +114,12 @@ message GetMatchPlayersResponse {
 
 /// GetPlayByPlayRequest represents the request to get the play by play of a match.
 message GetPlayByPlayRequest {
-  /// Id is the unique identifier of the match.
+  /// match_fid is the unique identifier of the match.
   string match_fid = 1;
+
+  /// from_sequence_no is an optional argument specifying the number of sequence
+  /// from which the play by play data will be returned
+  optional int32 from_sequence_no = 2;
 }
 
 /// GetPlayByPlayResponse represents the response to get the play by play of a match.
@@ -267,7 +271,7 @@ message Actor {
   string fid = 1;
 
   // type is the type of the Actor.
-  Actor type = 2;
+  ActorType type = 2;
 }
 
 // MatchEvent represents a single action in a match.
