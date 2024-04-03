@@ -135,17 +135,17 @@ message MatchEvent {
   // The unique identifier for the event.
   string fid = 1;
 
+  // The code representing the event kind.
+  EventCode code = 2;
+
   // period represents the period of the match when the event occurred.
-  int32 period = 2;
+  int32 period = 3;
 
   // time is the descending period ellapse, in milliseconds, when the event occurred.
-  int32 time = 3;
+  int32 time = 4;
 
   // sequence is the sequence number of the event in the match.
-  int32 sequence = 4;
-
-  // The code representing the event.
-  EventCode code = 5;
+  int32 sequence = 5;
 }
 
 // EventCode represents the type of event in a match.
@@ -267,11 +267,11 @@ enum ActorType {
 
 // ActorType represents the type of Actor.
 message Actor {
-  // fid is the unique identifier of the Actor type.
-  string fid = 1;
-
   // type is the type of the Actor.
-  ActorType type = 2;
+  ActorType type = 1;
+
+  // fid is the unique identifier of the Actor when the actor type is player or team.
+  optional string fid = 2;
 }
 
 // MatchEvent represents a single action in a match.
@@ -282,20 +282,26 @@ message MatchAction {
   // team_fid is the unique identifier of the team that performed the action.
   string team_fid = 2;
 
-  // Actor represents the type of Actor who performed the action.
+  // Actor represents who performed the action.
   Actor actor = 3;
 
-  // code represents the code of the action.
+  // code identifies the action kinde
   ActionCode code = 4;
 
-  // sub_code represents the sub-code of the action.
-  ActionSubcode sub_code = 5;
+  // For some action kinds, sub_code specifies additional data,
+  // as for the case of POINTS action, in which case sub_code specifies
+  // if the points were scored by a free, in-arc or out-arc throw
+  optional ActionSubcode sub_code = 5;
 
-  // value is the value associated with the action.
-  int32 value = 6;
+  // For some action kinds, value specifies the action value, 
+  // as in the case of POINTS action, in which case 
+  // value specifies the action score (1, 2 or 3 points)
+  optional int32 value = 6;
 
-  // result indicates whether the action was successful or not.
-  bool result = 7;
+  // For some action kinds, result specifies the action result, 
+  // as in the case of POINTS action, in which case 
+  // result specifies if the points were scored or not
+  optional bool result = 7;
 
   // period represents the period of the match when the action occurred.
   int32 period = 8;

@@ -221,13 +221,13 @@
     "v1Actor": {
       "type": "object",
       "properties": {
-        "fid": {
-          "type": "string",
-          "description": "fid is the unique identifier of the Actor type."
-        },
         "type": {
           "$ref": "#/definitions/v1ActorType",
           "description": "type is the type of the Actor."
+        },
+        "fid": {
+          "type": "string",
+          "description": "fid is the unique identifier of the Actor when the actor type is player or team."
         }
       },
       "description": "ActorType represents the type of Actor."
@@ -340,24 +340,24 @@
         },
         "actor": {
           "$ref": "#/definitions/v1Actor",
-          "description": "Actor represents the type of Actor who performed the action."
+          "description": "Actor represents who performed the action."
         },
         "code": {
           "$ref": "#/definitions/v1ActionCode",
-          "description": "code represents the code of the action."
+          "title": "code identifies the action kinde"
         },
         "subCode": {
           "$ref": "#/definitions/v1ActionSubcode",
-          "description": "sub_code represents the sub-code of the action."
+          "title": "For some action kinds, sub_code specifies additional data,\nas for the case of POINTS action, in which case sub_code specifies\nif the points were scored by a free, in-arc or out-arc throw"
         },
         "value": {
           "type": "integer",
           "format": "int32",
-          "description": "value is the value associated with the action."
+          "title": "For some action kinds, value specifies the action value, \nas in the case of POINTS action, in which case \nvalue specifies the action score (1, 2 or 3 points)"
         },
         "result": {
           "type": "boolean",
-          "description": "result indicates whether the action was successful or not."
+          "title": "For some action kinds, result specifies the action result, \nas in the case of POINTS action, in which case \nresult specifies if the points were scored or not"
         },
         "period": {
           "type": "integer",
@@ -384,6 +384,10 @@
           "type": "string",
           "description": "The unique identifier for the event."
         },
+        "code": {
+          "$ref": "#/definitions/v1EventCode",
+          "description": "The code representing the event kind."
+        },
         "period": {
           "type": "integer",
           "format": "int32",
@@ -398,10 +402,6 @@
           "type": "integer",
           "format": "int32",
           "description": "sequence is the sequence number of the event in the match."
-        },
-        "code": {
-          "$ref": "#/definitions/v1EventCode",
-          "description": "The code representing the event."
         }
       },
       "description": "Represents an event."
