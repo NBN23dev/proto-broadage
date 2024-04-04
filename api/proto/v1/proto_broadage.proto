@@ -52,12 +52,10 @@ message GetLiveMatchesResponse {
 
 /// MatchKey represents the key of a match.
 message MatchKey {
-  /// competition_fid is the unique id of the competition.
-  string competition_fid = 1;
   /// fid is the unique id of the match.
-  string fid = 2;
+  string fid = 1;
   /// project_key is the Match Project Key.
-  string project_key = 3;
+  string project_key = 2;
 }
 
 /// GetPlayersFromTeamRequest represents the request to get the players from a team.

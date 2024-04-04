@@ -409,17 +409,13 @@
     "v1MatchKey": {
       "type": "object",
       "properties": {
-        "competitionFid": {
-          "type": "string",
-          "description": "/ competition_fid is the unique id of the competition."
-        },
         "fid": {
           "type": "string",
           "description": "/ fid is the unique id of the match."
         },
         "projectKey": {
           "type": "string",
-          "description": "/ project_key is the unique key of the project."
+          "description": "/ project_key is the Match Project Key."
         }
       },
       "description": "/ MatchKey represents the key of a match."
