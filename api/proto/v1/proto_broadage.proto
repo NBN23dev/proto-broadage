@@ -56,6 +56,8 @@ message MatchKey {
   string competition_fid = 1;
   /// fid is the unique id of the match.
   string fid = 2;
+  /// project_key is the Match Project Key.
+  string project_key = 3;
 }
 
 /// GetPlayersFromTeamRequest represents the request to get the players from a team.
@@ -293,13 +295,13 @@ message MatchAction {
   // if the points were scored by a free, in-arc or out-arc throw
   optional ActionSubcode sub_code = 5;
 
-  // For some action kinds, value specifies the action value, 
-  // as in the case of POINTS action, in which case 
+  // For some action kinds, value specifies the action value,
+  // as in the case of POINTS action, in which case
   // value specifies the action score (1, 2 or 3 points)
   optional int32 value = 6;
 
-  // For some action kinds, result specifies the action result, 
-  // as in the case of POINTS action, in which case 
+  // For some action kinds, result specifies the action result,
+  // as in the case of POINTS action, in which case
   // result specifies if the points were scored or not
   optional bool result = 7;
 
