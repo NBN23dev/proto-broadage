@@ -353,11 +353,11 @@
         "value": {
           "type": "integer",
           "format": "int32",
-          "title": "For some action kinds, value specifies the action value, \nas in the case of POINTS action, in which case \nvalue specifies the action score (1, 2 or 3 points)"
+          "title": "For some action kinds, value specifies the action value,\nas in the case of POINTS action, in which case\nvalue specifies the action score (1, 2 or 3 points)"
         },
         "result": {
           "type": "boolean",
-          "title": "For some action kinds, result specifies the action result, \nas in the case of POINTS action, in which case \nresult specifies if the points were scored or not"
+          "title": "For some action kinds, result specifies the action result,\nas in the case of POINTS action, in which case\nresult specifies if the points were scored or not"
         },
         "period": {
           "type": "integer",
@@ -416,6 +416,10 @@
         "fid": {
           "type": "string",
           "description": "/ fid is the unique id of the match."
+        },
+        "projectKey": {
+          "type": "string",
+          "description": "/ project_key is the unique key of the project."
         }
       },
       "description": "/ MatchKey represents the key of a match."
