@@ -56,7 +56,7 @@ message MatchKey {
   string competition_fid = 1;
   /// fid is the unique id of the match.
   string fid = 2;
-  /// project_key is the unique key of the project.
+  /// project_key is the Match Project Key.
   string project_key = 3;
 }
 
