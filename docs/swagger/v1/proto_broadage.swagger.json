@@ -15,15 +15,9 @@
       "name": "BroadageService"
     }
   ],
-  "schemes": [
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/v1/match/{matchFid}/playbyplay": {
       "get": {
@@ -59,9 +53,7 @@
             "format": "int32"
           }
         ],
-        "tags": [
-          "BroadageService"
-        ]
+        "tags": ["BroadageService"]
       }
     },
     "/v1/match/{matchFid}/players": {
@@ -90,9 +82,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "BroadageService"
-        ]
+        "tags": ["BroadageService"]
       }
     },
     "/v1/matches/live": {
@@ -112,9 +102,7 @@
             }
           }
         },
-        "tags": [
-          "BroadageService"
-        ]
+        "tags": ["BroadageService"]
       }
     },
     "/v1/teams/{teamFid}/players": {
@@ -143,9 +131,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "BroadageService"
-        ]
+        "tags": ["BroadageService"]
       }
     }
   },
@@ -466,8 +452,7 @@
           "description": "/ last_name is the last name of the player."
         },
         "number": {
-          "type": "integer",
-          "format": "int32",
+          "type": "string",
           "description": "/ number is the number of the player."
         },
         "license": {
