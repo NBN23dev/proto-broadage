@@ -462,8 +462,7 @@
           "description": "/ last_name is the last name of the player."
         },
         "number": {
-          "type": "integer",
-          "format": "int32",
+          "type": "string",
           "description": "/ number is the number of the player."
         },
         "license": {

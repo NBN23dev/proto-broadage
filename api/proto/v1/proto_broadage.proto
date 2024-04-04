@@ -81,7 +81,7 @@ message TeamPlayer {
   /// last_name is the last name of the player.
   string last_name = 4;
   /// number is the number of the player.
-  int32 number = 5;
+  string number = 5;
   /// license is the license of the player.
   string license = 6;
 }
