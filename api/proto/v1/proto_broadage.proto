@@ -78,12 +78,10 @@ message TeamPlayer {
   string name = 2;
   /// surname is the last name of the player.
   string surname = 3;
-  /// team is the team id of the player.
-  string team = 4;
   /// number is the number of the player.
-  string number = 5;
+  string number = 4;
   /// license is the license of the player.
-  string license = 6;
+  string license = 5;
 }
 
 /// BoxScore represents the box score of a match.
