@@ -457,10 +457,6 @@
           "type": "string",
           "description": "/ surname is the last name of the player."
         },
-        "lastName": {
-          "type": "string",
-          "description": "/ last_name is the last name of the player."
-        },
         "number": {
           "type": "string",
           "description": "/ number is the number of the player."
