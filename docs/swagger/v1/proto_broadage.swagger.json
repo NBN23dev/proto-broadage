@@ -457,9 +457,9 @@
           "type": "string",
           "description": "/ surname is the last name of the player."
         },
-        "lastName": {
+        "team": {
           "type": "string",
-          "description": "/ last_name is the last name of the player."
+          "description": "/ team is the team id of the player."
         },
         "number": {
           "type": "string",
