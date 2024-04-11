@@ -441,10 +441,6 @@
           "type": "string",
           "description": "The unique identifier of the team."
         },
-        "name": {
-          "type": "string",
-          "description": "The team's name."
-        },
         "players": {
           "type": "array",
           "items": {

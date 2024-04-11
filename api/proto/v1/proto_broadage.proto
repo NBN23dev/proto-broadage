@@ -106,10 +106,8 @@ message MatchPlayer {
 message MatchTeam {
   // The unique identifier of the team.
   string fid = 1;
-  // The team's name.
-  string name = 2;
   // The team's match players.
-  repeated MatchPlayer players = 3;
+  repeated MatchPlayer players = 2;
 }
 
 /// GetMatchPlayersResponse represents the response to get the box score of a match.
