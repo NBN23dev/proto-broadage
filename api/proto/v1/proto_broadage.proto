@@ -95,19 +95,27 @@ message MatchPlayer {
   // The unique identifier of the player.
   string fid = 1;
   // The player's number.
-  string number = 3;
+  string number = 2;
   // Indicates if the player is starting the match.
-  bool start = 5;
+  bool start = 3;
   // Indicates if the player is the captain of the team.
-  bool captain = 6;
+  bool captain = 4;
+}
+
+// Represents a match team.
+message MatchTeam {
+  // The unique identifier of the team.
+  string fid = 1;
+  // The team's match players.
+  repeated MatchPlayer players = 2;
 }
 
 /// GetMatchPlayersResponse represents the response to get the box score of a match.
 message GetMatchPlayersResponse {
-  /// players are the players of the match.
-  repeated MatchPlayer home_team_players = 1;
-  /// players are the players of the match.
-  repeated MatchPlayer away_team_players = 2;
+  /// Match home team data, including players.
+  MatchTeam home_team = 1;
+  /// Match away team data, including players.
+  MatchTeam away_team = 2;
 }
 
 /// GetPlayByPlayRequest represents the request to get the play by play of a match.

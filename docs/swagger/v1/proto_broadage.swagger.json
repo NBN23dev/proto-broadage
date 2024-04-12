@@ -272,21 +272,13 @@
     "v1GetMatchPlayersResponse": {
       "type": "object",
       "properties": {
-        "homeTeamPlayers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1MatchPlayer"
-          },
-          "description": "/ players are the players of the match."
+        "homeTeam": {
+          "$ref": "#/definitions/v1MatchTeam",
+          "description": "/ Match home team data, including players."
         },
-        "awayTeamPlayers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1MatchPlayer"
-          },
-          "description": "/ players are the players of the match."
+        "awayTeam": {
+          "$ref": "#/definitions/v1MatchTeam",
+          "description": "/ Match away team data, including players."
         }
       },
       "description": "/ GetMatchPlayersResponse represents the response to get the box score of a match."
@@ -441,6 +433,24 @@
         }
       },
       "description": "Represents a player."
+    },
+    "v1MatchTeam": {
+      "type": "object",
+      "properties": {
+        "fid": {
+          "type": "string",
+          "description": "The unique identifier of the team."
+        },
+        "players": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1MatchPlayer"
+          },
+          "description": "The team's match players."
+        }
+      },
+      "description": "Represents a match team."
     },
     "v1TeamPlayer": {
       "type": "object",
